@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanuki</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1>Tanuki</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#search">Search</a></li>
+                <li><a href="#popular">Top Airing</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="search">
+            <h2>Search Anime</h2>
+            <input type="text" id="searchInput" placeholder="Enter anime title">
+            <button id="searchButton">Search</button>
+            <div class="anime-list-container">
+                <button class="nav-arrow left" id="searchLeftArrow"><i class="fas fa-chevron-left"></i></button>
+                <div class="anime-list" id="searchResults"></div>
+                <button class="nav-arrow right" id="searchRightArrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <section id="popular">
+            <h2>Top Airing Anime</h2>
+            <div class="anime-list-container">
+                <button class="nav-arrow left" id="popularLeftArrow"><i class="fas fa-chevron-left"></i></button>
+                <div class="anime-list" id="popularAnime"></div>
+                <button class="nav-arrow right" id="popularRightArrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <section id="recent">
+            <h2>Recent Episodes</h2>
+            <div class="anime-list-container">
+                <button class="nav-arrow left" id="recentLeftArrow"><i class="fas fa-chevron-left"></i></button>
+                <div class="anime-list" id="recentAnime"></div>
+                <button class="nav-arrow right" id="recentRightArrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <section id="movies">
+            <h2>Movies</h2>
+            <div class="anime-list-container">
+                <button class="nav-arrow left" id="moviesLeftArrow"><i class="fas fa-chevron-left"></i></button>
+                <div class="anime-list" id="moviesAnime"></div>
+                <button class="nav-arrow right" id="moviesRightArrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
