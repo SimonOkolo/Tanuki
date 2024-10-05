@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanuki</title>
+    <link rel="icon" type="image/x-icon" href="assets/css/img/tanuki-icon.ico">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS for loading screen */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9); /* Background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-attachment: fixed;
+            z-index: 1000; /* Ensure it covers other elements */
+        }
+        #loading img {
+            width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loading">
+        <img src="assets\css\img\Tanuki-icon.gif" alt="Loading GIF">
+    </div>
+
+    <header>
+        <img src="assets/css/img/tanuki-logo.png" alt="Tanuki logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="genres.html">Genres</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="top">
+            <section id="popular">
+                <div class="slideshow-container">
+                    <div class="slideshow-content">
+                        <img id="animeImage" src="">
+                        <div id="anime-info">
+                            <h3 id="animeTitle"></h3>
+                            <p id="animeDescription"></p>
+                        </div>
+                    </div>
+                    <button class="nav-arrow left" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+                    <button class="nav-arrow right" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <section id="genres">
+                <div class="genres">
+                    <h3>Genres</h3>
+                    <p>Place your content here...</p>
+                </div>
+            </section>
+        </div>
+
+        <section id="recent">
+            <h2>Recent Episodes</h2>
+            <div class="anime-list-container">
+                <button class="nav-arrow left" id="recentLeftArrow"><i class="fas fa-chevron-left"></i></button>
+                <div class="anime-list" id="recentAnime"></div>
+                <button class="nav-arrow right" id="recentRightArrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <section id="movies">
+            <h2>Movies</h2>
+            <div class="anime-list-container">
+                <button class="nav-arrow left" id="moviesLeftArrow"><i class="fas fa-chevron-left"></i></button>
+                <div class="anime-list" id="moviesAnime"></div>
+                <button class="nav-arrow right" id="moviesRightArrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+    <script>
+        // JavaScript to handle the loading screen
+        window.onload = function() {
+            const loadingScreen = document.getElementById('loading');
+            if (window.location.pathname.endsWith('index.html')) {
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 5000); // Hide after 5 seconds
+            } else {
+                loadingScreen.style.display = 'none'; // Hide if not index.html
+            }
+        };
+    </script>
+</body>
+</html>

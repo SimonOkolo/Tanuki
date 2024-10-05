@@ -23,7 +23,7 @@ async function fetchAnimeDetails(animeId) {
 }
 
 function displayAnimeDetails(anime) {
-    document.title = `${anime.title} - Anime Explorer`;
+    document.title = `Tanuki - ${anime.title}`;
 
     const banner = document.getElementById('animeBanner');
     banner.style.backgroundImage = `url(${anime.image})`;

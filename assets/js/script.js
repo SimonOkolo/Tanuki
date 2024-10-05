@@ -7,13 +7,7 @@ const moviesAnime = document.getElementById('moviesAnime');
 
 const API_BASE_URL = 'http://localhost:3000/anime/gogoanime';
 
-searchButton.addEventListener('click', searchAnime);
-
 // Add event listeners for navigation arrows
-document.getElementById('searchLeftArrow').addEventListener('click', () => scrollList('searchResults', -1));
-document.getElementById('searchRightArrow').addEventListener('click', () => scrollList('searchResults', 1));
-document.getElementById('popularLeftArrow').addEventListener('click', () => scrollList('popularAnime', -1));
-document.getElementById('popularRightArrow').addEventListener('click', () => scrollList('popularAnime', 1));
 document.getElementById('recentLeftArrow').addEventListener('click', () => scrollList('recentAnime', -1));
 document.getElementById('recentRightArrow').addEventListener('click', () => scrollList('recentAnime', 1));
 document.getElementById('moviesLeftArrow').addEventListener('click', () => scrollList('moviesAnime', -1));
@@ -69,17 +63,6 @@ function createAnimeCard(anime) {
     return card;
 }
 
-async function fetchPopularAnime() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/top-airing`);
-        const data = await response.json();
-        displayAnimeList(data.results, popularAnime);
-    } catch (error) {
-        console.error('Error fetching popular anime:', error);
-        popularAnime.innerHTML = '<p>Error loading popular anime. Please try again later.</p>';
-    }
-}
-
 async function fetchRecentAnime() {
     try {
         const response = await fetch(`${API_BASE_URL}/recent-episodes`);
@@ -102,7 +85,63 @@ async function fetchMovies() {
     }
 }
 
+let topAiringAnime = [];
+let currentSlideIndex = 0;
+
+
+async function fetchTopAiringAnime() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/top-airing`);
+        const data = await response.json();
+        topAiringAnime = data.results;
+        await fetchAnimeDetails(topAiringAnime);
+        updateSlide();
+        startSlideshow();
+    } catch (error) {
+        console.error('Error fetching top airing anime:', error);
+        document.querySelector('.slideshow-container').innerHTML = '<p>Error loading top airing anime. Please try again later.</p>';
+    }
+}
+
+async function fetchAnimeDetails(animeList) {
+    for (let anime of animeList) {
+        try {
+            const response = await fetch(`${API_BASE_URL}/info/${anime.id}`);
+            const data = await response.json();
+            anime.description = data.description || "No description available.";
+        } catch (error) {
+            console.error(`Error fetching details for ${anime.title}:`, error);
+            anime.description = "Unable to load description.";
+        }
+    }
+}
+
+function updateSlide() {
+    const anime = topAiringAnime[currentSlideIndex];
+    document.getElementById('animeImage').src = anime.image;
+    document.getElementById('animeTitle').textContent = anime.title;
+    document.getElementById('animeDescription').textContent = anime.description;
+}
+
+function nextSlide() {
+    currentSlideIndex = (currentSlideIndex + 1) % topAiringAnime.length;
+    updateSlide();
+}
+
+function prevSlide() {
+    currentSlideIndex = (currentSlideIndex - 1 + topAiringAnime.length) % topAiringAnime.length;
+    updateSlide();
+}
+
+function startSlideshow() {
+    setInterval(nextSlide, 15000);
+}
+
+
+document.getElementById('nextSlide').addEventListener('click', nextSlide);
+document.getElementById('prevSlide').addEventListener('click', prevSlide);
+
 // Fetch popular anime when the page loads
-fetchPopularAnime();
+fetchTopAiringAnime();
 fetchRecentAnime();
 fetchMovies();
