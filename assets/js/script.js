@@ -13,6 +13,65 @@ document.getElementById('recentRightArrow').addEventListener('click', () => scro
 document.getElementById('moviesLeftArrow').addEventListener('click', () => scrollList('moviesAnime', -1));
 document.getElementById('moviesRightArrow').addEventListener('click', () => scrollList('moviesAnime', 1));
 
+document.addEventListener('DOMContentLoaded', fetchGenres);
+
+function isCacheValid(cacheTimestamp, maxAge = 3600000) { // maxAge default: 1 hour
+    if (!cacheTimestamp) return false;
+    const currentTime = new Date().getTime();
+    const cacheAge = currentTime - parseInt(cacheTimestamp);
+    return cacheAge < maxAge;
+}
+
+// Utility function to set cache
+function setCache(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+    localStorage.setItem(`${key}Timestamp`, new Date().getTime().toString());
+}
+
+// Utility function to get cache
+function getCache(key) {
+    const data = localStorage.getItem(key);
+    const timestamp = localStorage.getItem(`${key}Timestamp`);
+    return { data: data ? JSON.parse(data) : null, timestamp };
+}
+
+async function fetchGenres() {
+    const { data: cachedGenres, timestamp } = getCache('genres');
+
+    if (cachedGenres && isCacheValid(timestamp)) {
+        displayGenres(cachedGenres);
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}/genre/list`);
+        const genres = await response.json();
+        
+        setCache('genres', genres);
+        displayGenres(genres);
+    } catch (error) {
+        console.error('Error fetching genres:', error);
+        genresList.innerHTML = '<p>Error loading genres. Please try again later.</p>';
+        
+        // If there's an error, use cached data if available, even if it's old
+        if (cachedGenres) {
+            console.log('Using cached genres data due to fetch error');
+            displayGenres(cachedGenres);
+        }
+    }
+}
+
+
+function displayGenres(genres) {
+    genresList.innerHTML = '';
+    genres.forEach(genre => {
+        const genreLink = document.createElement('a');
+        genreLink.textContent = genre.title;
+        genreLink.href = `genres.html?id=${genre.id}&title=${encodeURIComponent(genre.title)}`;
+        genreLink.classList.add('genre-link');
+        genresList.appendChild(genreLink);
+    });
+}
 
 function scrollList(elementId, direction) {
     const element = document.getElementById(elementId);
@@ -88,19 +147,70 @@ async function fetchMovies() {
 let topAiringAnime = [];
 let currentSlideIndex = 0;
 
-
 async function fetchTopAiringAnime() {
+    const { data: cachedData, timestamp } = getCache('topAiringAnime');
+
+    if (cachedData && isCacheValid(timestamp)) {
+        topAiringAnime = cachedData;
+        updateSlide();
+        createDots(); // Create dots for navigation
+        startSlideshow();
+        return;
+    }
+
+    document.getElementById('topAiringSkeleton').style.display = 'block';
+    document.querySelector('.slideshow-container').style.display = 'none';
+
     try {
         const response = await fetch(`${API_BASE_URL}/top-airing`);
         const data = await response.json();
         topAiringAnime = data.results;
         await fetchAnimeDetails(topAiringAnime);
+
+        setCache('topAiringAnime', topAiringAnime);
+
+        document.getElementById('topAiringSkeleton').style.display = 'none';
+        document.querySelector('.slideshow-container').style.display = 'block';
         updateSlide();
+        createDots(); // Create dots for navigation
         startSlideshow();
     } catch (error) {
         console.error('Error fetching top airing anime:', error);
         document.querySelector('.slideshow-container').innerHTML = '<p>Error loading top airing anime. Please try again later.</p>';
+        document.getElementById('topAiringSkeleton').style.display = 'none';
+
+        if (cachedData) {
+            topAiringAnime = cachedData;
+            updateSlide();
+            createDots(); // Create dots for navigation
+            startSlideshow();
+        }
     }
+}
+
+function createDots() {
+    const dotsContainer = document.getElementById('dotsContainer');
+    dotsContainer.innerHTML = ''; // Clear existing dots
+    topAiringAnime.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.classList.add('dot');
+        dot.addEventListener('click', () => showSlide(index));
+        dotsContainer.appendChild(dot);
+    });
+    updateActiveDot(); // Update the first dot as active
+}
+
+function showSlide(index) {
+    currentSlideIndex = index;
+    updateSlide();
+    updateActiveDot();
+}
+
+function updateActiveDot() {
+    const dots = document.querySelectorAll('.dot');
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlideIndex);
+    });
 }
 
 async function fetchAnimeDetails(animeList) {
@@ -126,6 +236,7 @@ function updateSlide() {
 function nextSlide() {
     currentSlideIndex = (currentSlideIndex + 1) % topAiringAnime.length;
     updateSlide();
+    updateActiveDot();
 }
 
 function prevSlide() {
@@ -137,9 +248,6 @@ function startSlideshow() {
     setInterval(nextSlide, 15000);
 }
 
-
-document.getElementById('nextSlide').addEventListener('click', nextSlide);
-document.getElementById('prevSlide').addEventListener('click', prevSlide);
 
 // Fetch popular anime when the page loads
 fetchTopAiringAnime();

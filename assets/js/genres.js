@@ -7,8 +7,21 @@ paginationControls.id = 'paginationControls';
 
 let currentPage = 1;
 let currentGenre = '';
+let currentGenreTitle = '';
 
-document.addEventListener('DOMContentLoaded', fetchGenres);
+
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    currentGenre = urlParams.get('id');
+    currentGenreTitle = urlParams.get('title');
+    
+    if (currentGenre && currentGenreTitle) {
+        fetchAnimeByGenre(currentGenre, currentGenreTitle, currentPage);
+    } else {
+        selectedGenre.textContent = 'No genre selected';
+        animeGrid.innerHTML = '<p>Please select a genre from the home page.</p>';
+    }
+});
 
 async function fetchGenres() {
     try {
@@ -47,6 +60,7 @@ async function fetchAnimeByGenre(genreId, genreTitle, page = 1) {
         animeGrid.innerHTML = '<p>Error loading anime. Please try again later.</p>';
     }
 }
+
 
 function displayAnimeGrid(results) {
     animeGrid.innerHTML = '';

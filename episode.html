@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanuki - Episode</title>
+    <link rel="icon" type="image/x-icon" href="assets/css/img/tanuki-icon.ico">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img src="assets/css/img/tanuki-logo.png" alt="Tanuki logo" class="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="search.html">Search</a></li>
+                <li><a href="genres.html">Genres</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div id="episodeContainer">
+            <h2 id="episodeTitle"></h2>
+            <div id="errorContainer"></div>
+            <div id="playerControls">
+                <select id="serviceSelector"></select>
+                <select id="qualitySelector"></select>
+            </div>
+            <div id="videoContainer"></div>
+        </div>
+    </main>
+
+    <script src="assets/js/episode.js"></script>
+</body>
+</html>

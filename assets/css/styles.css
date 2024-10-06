@@ -1,351 +1,548 @@
 @import "https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap";
-
 @import "https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap";
 
 body {
-font-family:"Fredoka",sans-serif;
-line-height:1.6;
-margin:0;
-padding:0;
-background-color:transparent;
-backdrop-filter:blur(10px);
-min-height:100vh
+    font-family: "Fredoka", sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 body::before {
-content:"";
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:-1;
-background-image:url(img/yourname.jpg);
-background-size:cover;
-background-repeat:no-repeat;
-background-attachment:fixed
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: #0e0e0e;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 header {
-display:flex;
-flex-direction:column;
-align-items:center;
-background-color:#0e0e0e;
-color:#fff
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0c0c0c;
+    color: #fff;
 }
 
 .logo {
-padding-top:10px;
-height:50px
+    padding-top: 10px;
+    height: 50px;
 }
 
 nav ul {
-list-style:none;
-padding:0;
-display:flex;
-justify-content:center
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
 nav ul li {
-margin:0 10px
+    margin: 0 10px;
 }
 
 header h1 {
-margin:0
+    margin: 0;
 }
 
 nav ul li a {
-color:#fff;
-text-decoration:none
+    color: #fff;
+    text-decoration: none;
 }
 
 main {
-background:#312f2f33;
-box-shadow:0 4px 30px #0000001a;
-backdrop-filter:blur(3px)
+    background-color: #0e0e0e;
+    box-shadow: 0 4px 30px #0000001a;
+    color: #bdbdbd;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .search-container {
-display:flex;
-justify-content:center;
-align-items:center;
-margin:2rem 0
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
 }
 
 .top {
-display:flex;
-justify-content:space-between;
-gap:20px
+    padding-left: 2rem;
+    padding-right: 2rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    height: 550px;
+    flex: 0 0 auto;
+}
+
+#welcome-bar {
+    margin-top: 1rem;
+    
+    background-color: #0c0c0c;
+    text-align: center; /* Ensure text inside is centered */
+}
+
+#welcome-bar h2 {
+    font-family: "Protest Strike", sans-serif;
+    color: #2462ff;
+    text-decoration: underline;
 }
 
 #popular {
-flex:3
+    flex: 3;
+    display: flex;
+    flex-direction: column;
 }
 
 #genres {
-flex:1;
-background-color:#0000001a;
-padding:20px
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .slideshow-container {
-position:relative;
-width:100%;
-overflow:hidden;
-background-color:#0e0e0e;
-padding-bottom:1rem
+    position: relative;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    background-color: #0e0e0e;
+    padding: 1rem;
 }
 
 .slideshow-content {
-display:flex;
-align-items:center;
-justify-content:center;
-width:100%
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    width: 100%;
+    overflow-y: auto;
+}
+
+/* Webkit browsers custom scrollbar */
+.slideshow-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.slideshow-content::-webkit-scrollbar-track {
+    background: #1e1e1e;
+    border-radius: 4px;
+}
+
+.slideshow-content::-webkit-scrollbar-thumb {
+    background: #4a4a4a;
+    border-radius: 4px;
+}
+
+.slideshow-content::-webkit-scrollbar-thumb:hover {
+    background: #5a5a5a;
+}
+
+/* Firefox custom scrollbar */
+.slideshow-content {
+    scrollbar-width: thin;
+    scrollbar-color: #4a4a4a #1e1e1e00;
 }
 
 .slideshow-content img {
-max-width:100%;
-height:auto;
-object-fit:contain;
-border-radius:8px
+    max-width: 50%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
 .slideshow-content #anime-info {
-width:50%;
-padding-left:40px;
-padding-top:20px;
-display:flex;
-flex-direction: column;
-justify-content: center;
-color:#bdbdbd
+    width: 50%;
+    padding: 20px 0 20px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: #bdbdbd;
+    overflow-y: auto;
 }
 
 .slideshow-content #anime-info h3 {
-font-size:24px;
-font-family:"Protest Strike",sans-serif;
-font-weight:400;
-margin-bottom:10px
+    font-size: 24px;
+    font-family: "Protest Strike", sans-serif;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 .slideshow-content #anime-info p {
-font-size:16px;
-margin:5px 0
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+#episodeContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+#episodeTitle {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#videoContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.episode-item {
+    background-color: #1a1a1a;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.episode-item:hover {
+    background-color: #2a2a2a;
+}
+
+.episode-number {
+    font-weight: bold;
+}
+
+.episode-title {
+    color: #bdbdbd;
+    font-style: italic;
+}
+
+#playerControls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+#serviceSelector, #qualitySelector {
+    padding: 5px;
+    border-radius: 4px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #3a3a3a;
+}
+
+#videoContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#videoContainer video {
+    max-width: 100%;
+    height: auto;
 }
 
 .nav-arrow {
-position:absolute;
-top:50%;
-transform:translateY(-50%);
-background-color:#00000080;
-color:#fff;
-border:none;
-font-size:1.5rem;
-padding:1rem .5rem;
-cursor:pointer;
-z-index:2;
-transition:background-color .3s
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #00000080;
+    color: #fff;
+    border: none;
+    font-size: 1.5rem;
+    padding: 1rem .5rem;
+    cursor: pointer;
+    z-index: 2;
+    transition: background-color .3s;
 }
 
 .nav-arrow:hover {
-background-color:#000c
+    background-color: #000c;
 }
 
 .nav-arrow.left {
-left:0
+    left: 0;
 }
 
 .nav-arrow.right {
-right:0
+    right: 0;
 }
 
-#recent,#movies {
-padding:1rem
+.dots-container {
+    text-align: center;
 }
 
-#recent h2,#movies h2 {
-margin-bottom:0
+/* Dot/bullet styling */
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #2462ff;
+}
+
+#recent, #movies {
+    
+    padding: 1rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    background-color: #0e0e0e;
+}
+
+#recent h2, #movies h2 {
+    font-family: "Protest Strike", sans-serif;
+    text-decoration: underline;
+    color: #2462ff;
+    margin-bottom: 0;
 }
 
 #searchInput {
-padding:.5rem 0;
-width:300px;
-border:none;
-border-bottom:2px solid #0003;
-background-color:transparent;
-transition:border-color .3s;
-outline:none
+    padding: .5rem 0;
+    width: 300px;
+    border: none;
+    border-bottom: 2px solid #0003;
+    background-color: transparent;
+    transition: border-color .3s;
+    outline: none;
 }
 
 #searchInput:focus {
-border-bottom-color:#00000080
+    border-bottom-color: #00000080;
 }
 
 #searchButton {
-padding:0;
-background-color:transparent;
-color:#333;
-border:none;
-cursor:pointer;
-margin-left:10px;
-font-weight:700;
-transition:color .3s
+    padding: 0;
+    background-color: transparent;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: 700;
+    transition: color .3s;
 }
 
 #searchButton:hover {
-color:#000
+    color: #000;
 }
 
 .anime-list-container {
-position:relative;
-width:100%;
-margin-top:1rem
+    position: relative;
+    width: 100%;
+    margin-top: 1rem;
 }
 
 .anime-list {
-display:flex;
-overflow-x:auto;
-scroll-behavior:smooth;
--webkit-overflow-scrolling:touch;
-scrollbar-width:none;
--ms-overflow-style:none;
-padding:1rem 0
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 1rem 0;
 }
 
 .anime-list::-webkit-scrollbar {
-display:none
+    display: none;
 }
 
 .anime-card {
-flex:0 0 auto;
-width:200px;
-height:300px;
-margin-right:1rem;
-position:relative;
-overflow:hidden;
-border-radius:8px;
-box-shadow:0 4px 6px #0000001a;
-transition:transform .3s ease,box-shadow .3s ease
+    flex: 0 0 auto;
+    width: 200px;
+    height: 300px;
+    margin-right: 1rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px #0000001a;
+    transition: transform .3s ease, box-shadow .3s ease;
 }
 
 .anime-card:hover {
-transform:scale(1.05);
-box-shadow:0 6px 8px #0003
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px #0003;
 }
 
 .anime-card img {
-width:100%;
-height:100%;
-object-fit:cover
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .anime-info {
-position:absolute;
-bottom:0;
-left:0;
-right:0;
-background:linear-gradient(to top,#000c 0%,#0000 100%);
-color:#fff;
-padding:1rem;
-transform:translateY(100%);
-transition:transform .3s ease
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, #000c 0%, #0000 100%);
+    color: #fff;
+    padding: 1rem;
+    transform: translateY(100%);
+    transition: transform .3s ease;
 }
 
 .anime-card:hover .anime-info {
-transform:translateY(0)
+    transform: translateY(0);
 }
 
 .anime-info h3 {
-margin:0 0 .5rem;
-font-size:1rem
+    margin: 0 0 .5rem;
+    font-size: 1rem;
 }
 
 .anime-info p {
-margin:0;
-font-size:.8rem;
-opacity:.8
+    margin: 0;
+    font-size: .8rem;
+    opacity: .8;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
 }
 
 #animeBanner {
-position:relative;
-height:300px;
-background-size:cover;
-background-position:center;
-color:#fff;
-padding:2rem;
-display:flex;
-flex-direction:column;
-justify-content:flex-end
+    position: relative;
+    height: 400px;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
 #animeBanner::before {
-content:'';
-position:absolute;
-top:0;
-left:0;
-right:0;
-bottom:0;
-background:#00000080;
-backdrop-filter:blur(5px)
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #00000080;
+    backdrop-filter: blur(5px);
 }
 
-#animeBanner h2,#animeBanner p {
-position:relative;
-z-index:1
+#animeBanner h2, #animeBanner p {
+    position: relative;
+    z-index: 1;
 }
 
 #animeInfo {
-background-color:#fff;
-padding:1rem;
-margin-bottom:1rem;
-border-radius:8px;
-box-shadow:0 2px 4px #0000001a
+    flex: 1;
+    background-color: #0e0e0e;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px #0000001a;
+    color: #ffffff;
 }
 
 #episodesList {
-margin-top:2rem
+    flex: 5;
+    background-color: #0e0e0e;
 }
 
 #episodesContainer {
-list-style-type:none;
-padding:0
+    list-style-type: none;
+    padding: 1rem;
 }
 
 #episodesContainer li {
-background-color:#fff;
-margin-bottom:.5rem;
-padding:.5rem;
-border-radius:4px;
-box-shadow:0 2px 4px #0000001a
+    background-color: #fff;
+    margin-bottom: .5rem;
+    padding: .5rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px #0000001a;
 }
 
 #genresList {
-display:flex;
-flex-wrap:wrap;
-gap:10px;
-margin-bottom:20px
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+    padding-right: 10px;
+}
+
+/* Webkit browsers custom scrollbar */
+#genresList::-webkit-scrollbar {
+    width: 8px;
+}
+
+#genresList::-webkit-scrollbar-track {
+    background: #1e1e1e;
+    border-radius: 4px;
+}
+
+#genresList::-webkit-scrollbar-thumb {
+    background: #4a4a4a;
+    border-radius: 4px;
+}
+
+#genresList::-webkit-scrollbar-thumb:hover {
+    background: #5a5a5a;
+}
+
+/* Firefox custom scrollbar */
+#genresList {
+    scrollbar-width: thin;
+    scrollbar-color: #4a4a4a #5d484800;
+}
+
+.genre-link {
+    padding: 5px 10px;
+    background-color: #1a1a1a;
+    color: #bdbdbd;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.genre-link:hover {
+    background-color: #2a2a2a;
+    transform: translateY(-2px);
 }
 
 #genresList button {
-padding:10px 20px;
-background-color:#f0f0f0;
-border:none;
-border-radius:5px;
-cursor:pointer;
-transition:background-color .3s
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color .3s;
 }
 
 #genresList button:hover {
-background-color:#e0e0e0
+    background-color: #e0e0e0;
 }
 
 #selectedGenre {
-margin-bottom:20px
+    font-family: "Protest Strike", sans-serif;
+    margin-bottom: 20px;
 }
 
 #paginationControls {
-display:flex;
-justify-content:center;
-align-items:center;
-margin-top:20px;
-gap:10px
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
 }
