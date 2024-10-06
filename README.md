@@ -1,8 +1,8 @@
 # Tanuki
 
-![App Screenshot](https://ibb.co/sW8XyXj)
+![App Screenshot](https://i.ibb.co/1zF484Z/Screenshot-2024-10-06-210127.png)
 # 
-![App Screenshot](https://ibb.co/wCgdpK7)
+![App Screenshot](https://i.ibb.co/3WdTS0v/Screenshot-2024-10-06-210133.png)
 # 
-![App Screenshot](https://ibb.co/7j3CfXz)
+![App Screenshot](https://i.ibb.co/8NysC0B/Screenshot-2024-10-06-210140.png)
 
