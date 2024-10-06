@@ -39,7 +39,19 @@ function displayAnimeDetails(anime) {
     const episodesContainer = document.getElementById('episodesContainer');
     anime.episodes.forEach(ep => {
         const li = document.createElement('li');
-        li.textContent = `Episode ${ep.number}: ${ep.title || 'No title'}`;
+        li.className = 'episode-item';
+        li.onclick = () => window.location.href = `episode.html?id=${anime.id}&ep=${ep.number}`;
+        
+        const episodeNumber = document.createElement('span');
+        episodeNumber.className = 'episode-number';
+        episodeNumber.textContent = `Episode ${ep.number}`;
+        
+        const episodeTitle = document.createElement('span');
+        episodeTitle.className = 'episode-title';
+        episodeTitle.textContent = ep.title && ep.title !== "null" ? ep.title : "No Title";
+        
+        li.appendChild(episodeNumber);
+        li.appendChild(episodeTitle);
         episodesContainer.appendChild(li);
     });
 }
