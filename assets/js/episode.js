@@ -1,4 +1,6 @@
 const API_BASE_URL = 'https://api.consumet.org/anime/gogoanime';
+const CORS_PROXY = 'https://cors.proxy.consumet.org/';
+const API_PROXY_URL = CORS_PROXY + API_BASE_URL;
 
 let currentEpisodeId = null;
 
@@ -17,26 +19,59 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchAvailableServers(episodeId) {
     try {
-        const url = `${API_BASE_URL}/servers/${episodeId}`;
+        const url = `${API_PROXY_URL}/servers/${episodeId}`;
         console.log('Fetching servers from:', url);
         
-        const response = await fetch(url);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Origin': window.location.origin,
+            },
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         
-        const servers = await response.json();
-        console.log('Servers received:', servers);
+        const contentType = response.headers.get("content-type");
+        console.log('Response content type:', contentType);
         
-        if (servers.length === 0) {
+        const text = await response.text();
+        console.log('Response text:', text.substring(0, 500)); // Log first 500 characters
+        
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            console.error('Failed to parse response as JSON:', e);
+            throw new Error(`Unexpected response format. Content-Type: ${contentType}. Response starts with: ${text.substring(0, 100)}...`);
+        }
+        
+        if (!Array.isArray(data)) {
+            throw new Error(`Unexpected response structure. Expected an array, got: ${typeof data}`);
+        }
+        
+        if (data.length === 0) {
             throw new Error('No servers available for this episode');
         }
         
-        displayServerOptions(servers);
+        console.log('Servers received:', data);
+        displayServerOptions(data);
     } catch (error) {
         console.error('Error fetching available servers:', error);
-        displayError(`Failed to fetch available servers: ${error.message}`);
+        if (error.name === 'AbortError') {
+            displayError('Request timed out. Please check your internet connection and try again.');
+        } else if (error instanceof TypeError && error.message === 'Failed to fetch') {
+            displayError('Network error. Please check your internet connection and try again.');
+        } else {
+            displayError(`Failed to fetch available servers: ${error.message}`);
+        }
     }
 }
 
@@ -63,7 +98,7 @@ function displayServerOptions(servers) {
 
 async function fetchStreamingLinks(episodeId, serverName) {
     try {
-        const url = `${API_BASE_URL}/watch/${episodeId}?server=${serverName}`;
+        const url = `${API_PROXY_URL}/watch/${episodeId}?server=${serverName}`;
         console.log('Fetching streaming links from:', url);
         
         const response = await fetch(url);
@@ -132,6 +167,12 @@ function displayVideoPlayer(data) {
 }
 
 function displayError(message) {
-    const errorContainer = document.getElementById('videoContainer');
-    errorContainer.innerHTML = `<p style="color: red; font-weight: bold;">Error: ${message}</p>`;
+    const errorContainer = document.getElementById('errorContainer');
+    if (errorContainer) {
+        errorContainer.innerHTML = `<p style="color: red; font-weight: bold;">Error: ${message}</p>`;
+    } else {
+        console.error('Error container not found in the DOM');
+        alert(`Error: ${message}`);
+    }
+    console.error(message);
 }
