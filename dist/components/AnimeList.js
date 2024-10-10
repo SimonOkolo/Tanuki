@@ -1,4 +1,4 @@
-import { createAnimeCard } from './AnimeCard';
+import { createAnimeCard } from './AnimeCard.js';
 export function displayAnimeList(results, container) {
     container.innerHTML = '';
     if (results.length === 0) {

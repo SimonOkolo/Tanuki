@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getAnimeDetails } from '../services/api';
+import { getAnimeDetails } from '../services/api.js';
 export function initAnimeDetailsPage() {
     return __awaiter(this, void 0, void 0, function* () {
         const urlParams = new URLSearchParams(window.location.search);

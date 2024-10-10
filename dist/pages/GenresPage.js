@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getAnimeByGenre } from '../services/api';
-import { displayAnimeList } from '../components/AnimeList';
+import { getAnimeByGenre } from '../services/api.js';
+import { displayAnimeList } from '../components/AnimeList.js';
 export function initGenresPage() {
     const urlParams = new URLSearchParams(window.location.search);
     const genreId = urlParams.get('id');

@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { searchAnime } from '../services/api';
-import { displayAnimeList, setupScrollButtons } from '../components/AnimeList';
+import { searchAnime } from '../services/api.js';
+import { displayAnimeList, setupScrollButtons } from '../components/AnimeList.js';
 export function initSearchPage() {
     const searchInput = document.getElementById('searchInput');
     const searchButton = document.getElementById('searchButton');

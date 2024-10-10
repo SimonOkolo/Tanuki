@@ -7,9 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getTopAiring, getRecentEpisodes, getGenres } from '../services/api';
-import { displayAnimeList, setupScrollButtons } from '../components/AnimeList';
-import { Slideshow } from '../components/Slideshow';
+import { getTopAiring, getRecentEpisodes, getGenres } from '../services/api.js';
+import { displayAnimeList, setupScrollButtons } from '../components/AnimeList.js';
+import { Slideshow } from '../components/Slideshow.js';
 export function initHomePage() {
     return __awaiter(this, void 0, void 0, function* () {
         const recentAnime = document.getElementById('recentAnime');
