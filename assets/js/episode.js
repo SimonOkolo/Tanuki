@@ -1,5 +1,5 @@
 const API_BASE_URL = 'https://api.consumet.org/anime/gogoanime';
-const CORS_PROXY = 'https://cors.proxy.consumet.org/';
+const CORS_PROXY = 'http://localhost:8080/';
 const API_PROXY_URL = CORS_PROXY + API_BASE_URL;
 
 let currentEpisodeId = null;
