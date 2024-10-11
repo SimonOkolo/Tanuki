@@ -1,26 +1,30 @@
-import { getTopAiring, getRecentEpisodes, getGenres } from '../services/api';
+import { getRecentEpisodes, getGenres, getMovies } from '../services/api';
 import { displayAnimeList, setupScrollButtons } from '../components/AnimeList';
 import { Slideshow } from '../components/Slideshow';
 
 export async function initHomePage(): Promise<void> {
   const recentAnime = document.getElementById('recentAnime');
   const genresList = document.getElementById('genresList');
+  const moviesAnime = document.getElementById('moviesAnime');
 
-  if (recentAnime && genresList) {
+  if (recentAnime && genresList && moviesAnime) {
     try {
-      const [topAiringData, recentEpisodesData, genresData] = await Promise.all([
-        getTopAiring(),
+      const [recentEpisodesData, genresData, moviesData] = await Promise.all([
         getRecentEpisodes(),
-        getGenres()
+        getGenres(),
+        getMovies()
       ]);
 
-      const slideshow = new Slideshow(topAiringData);
-      slideshow.init();
+      const slideshow = new Slideshow();
+      await slideshow.init();
 
       displayAnimeList(recentEpisodesData, recentAnime);
       setupScrollButtons('recentAnime');
 
       displayGenres(genresData, genresList);
+
+      displayAnimeList(moviesData, moviesAnime);
+      setupScrollButtons('moviesAnime');
     } catch (error) {
       console.error('Error initializing home page:', error);
     }

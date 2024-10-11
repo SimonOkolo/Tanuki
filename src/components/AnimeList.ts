@@ -14,11 +14,11 @@ export function displayAnimeList(results: Anime[], container: HTMLElement): void
 }
 
 export function setupScrollButtons(containerId: string): void {
+  const container = document.getElementById(containerId);
   const leftArrow = document.getElementById(`${containerId}LeftArrow`);
   const rightArrow = document.getElementById(`${containerId}RightArrow`);
-  const container = document.getElementById(containerId);
 
-  if (leftArrow && rightArrow && container) {
+  if (container && leftArrow && rightArrow) {
     leftArrow.addEventListener('click', () => scrollList(container, -1));
     rightArrow.addEventListener('click', () => scrollList(container, 1));
   }

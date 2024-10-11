@@ -1,20 +1,28 @@
 import { Anime } from '../types';
+import { getTopAiringWithDetails } from '../services/api';
 
 export class Slideshow {
   private animeList: Anime[];
   private currentIndex: number;
   private intervalId: number | null;
 
-  constructor(animeList: Anime[]) {
+  constructor(animeList: Anime[] = []) {
     this.animeList = animeList;
     this.currentIndex = 0;
     this.intervalId = null;
   }
 
-  public init(): void {
-    this.updateSlide();
-    this.createDots();
-    this.startSlideshow();
+  public async init(): Promise<void> {
+    try {
+      if (this.animeList.length === 0) {
+        this.animeList = await getTopAiringWithDetails();
+      }
+      this.updateSlide();
+      this.createDots();
+      this.startSlideshow();
+    } catch (error) {
+      console.error('Error initializing slideshow:', error);
+    }
   }
 
   private updateSlide(): void {
