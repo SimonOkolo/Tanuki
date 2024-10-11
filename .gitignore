@@ -1,4 +1,5 @@
 /api.consumet.org
+/cors-anywhere
 # dependencies
 /node_modules
 /.pnp
