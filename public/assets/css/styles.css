@@ -1,16 +1,22 @@
 @import "https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap";
 @import "https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap";
 
+:root {
+    --main-color:rgb(15, 15, 15);
+    --background-color:rgb(20, 20, 20);
+}
+
 body {
     font-family: "Fredoka", sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: rgb(14, 14, 14);
+    background-color: var(--main-color);
     backdrop-filter: blur(10px);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    color: #fff;
 }
 
 body::before {
@@ -21,7 +27,7 @@ body::before {
     width: 100%;
     height: 100%;
     z-index: -1;
-    background-color: rgb(14, 14, 14);
+    background-color: var(--main-color);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -31,7 +37,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #0c0c0c;
+    background-color: var(--main-color);
     color: #fff;
 }
 
@@ -61,12 +67,8 @@ nav ul li a {
 }
 
 main {
-    background-color: #0e0e0e;
-    box-shadow: 0 4px 30px #0000001a;
-    color: #bdbdbd;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    padding: 0;
+    background-color: var(--background-color);
 }
 
 .search-container {
@@ -87,16 +89,10 @@ main {
 }
 
 #welcome-bar {
-    margin-top: 1rem;
-    
-    background-color: #0c0c0c;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    background-color: var(--main-color);
     text-align: center; /* Ensure text inside is centered */
-}
-
-#welcome-bar h2 {
-    font-family: "Protest Strike", sans-serif;
-    color: #2462ff;
-    text-decoration: underline;
 }
 
 #popular {
@@ -118,7 +114,7 @@ main {
     flex: 1;
     display: flex;
     overflow: hidden;
-    background-color: #0e0e0e;
+    background-color: var(--background-color);
     padding: 1rem;
 }
 
@@ -136,7 +132,7 @@ main {
 }
 
 .slideshow-content::-webkit-scrollbar-track {
-    background: #1e1e1e;
+    background: var(--background-color);
     border-radius: 4px;
 }
 
@@ -173,7 +169,7 @@ main {
 }
 
 .slideshow-content #anime-info h3 {
-    font-size: 24px;
+    font-size: 48px;
     font-family: "Protest Strike", sans-serif;
     font-weight: 400;
     margin-top: 0;
@@ -183,22 +179,6 @@ main {
 .slideshow-content #anime-info p {
     font-size: 16px;
     margin: 5px 0;
-}
-
-#episodeContainer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-#episodeTitle {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-#videoContainer {
-    display: flex;
-    justify-content: center;
 }
 
 .episode-item {
@@ -220,18 +200,38 @@ main {
 }
 
 .episode-number {
+    color: var(--background-color);
+    font-weight: bold;
+}
+
+.episode-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.episode-button:hover {
+    background-color: #3a3a3a;
+}
+
+.episode-button.current-episode {
+    background-color: #4a4a4a;
     font-weight: bold;
 }
 
 .episode-title {
-    color: #bdbdbd;
+    color: var(--background-color);
     font-style: italic;
 }
 
 #playerControls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
     margin-bottom: 10px;
 }
 
@@ -241,11 +241,6 @@ main {
     background-color: #2a2a2a;
     color: #ffffff;
     border: 1px solid #3a3a3a;
-}
-
-#videoContainer {
-    display: flex;
-    justify-content: center;
 }
 
 #videoContainer video {
@@ -300,11 +295,10 @@ main {
 }
 
 #recent, #movies {
-    
     padding: 1rem;
     padding-left: 4rem;
     padding-right: 4rem;
-    background-color: #0e0e0e;
+    background-color: var(--background-color);
 }
 
 #recent h2, #movies h2 {
@@ -350,13 +344,15 @@ main {
 }
 
 .anime-list {
+    background-color: var(--main-color);
+    border-radius: 8px;
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 1rem 0;
+    padding: 1rem;
 }
 
 .anime-list::-webkit-scrollbar {
@@ -547,3 +543,51 @@ main {
     margin-top: 20px;
     gap: 10px;
 }
+
+#episodeContainer {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 100px); /* Adjust based on your header height */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#videoContainer {
+    flex: 4;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-top: 56.25%; /* 16:9 Aspect Ratio */
+}
+
+#videoContainer iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+#videoContainer video {
+    width: 100%;
+    height: auto;
+    max-height: calc(100% - 60px); /* Adjust based on your controls height */
+}
+
+#episodes {
+    flex: 1;
+    margin-left: 20px;
+    overflow-y: auto;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    padding: 15px;
+}
+
+#episodeTitle {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+

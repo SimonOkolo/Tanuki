@@ -1,5 +1,5 @@
-import { getEpisodeServers, getStreamingLinks } from '../services/api';
-import { ServerResponse } from '../types';
+import { getEpisodeServers, getAnimeDetails } from '../services/api';
+import { ServerInfo } from '../types';
 
 export async function initEpisodePage(): Promise<void> {
   const urlParams = new URLSearchParams(window.location.search);
@@ -7,101 +7,75 @@ export async function initEpisodePage(): Promise<void> {
   const episodeNumber = urlParams.get('ep');
 
   if (animeId && episodeNumber) {
-    const episodeId = `${animeId}-episode-${episodeNumber}`;
     try {
+      const animeDetails = await getAnimeDetails(animeId);
+      populateEpisodesList(animeDetails, animeId, parseInt(episodeNumber));
+      
+      const episodeId = `${animeId}-episode-${episodeNumber}`;
       const servers = await getEpisodeServers(episodeId);
-      displayServerOptions(servers, episodeId);
+      console.log('Available servers:', servers);
+      displayServerOptions(servers);
     } catch (error) {
-      console.error('Error fetching episode servers:', error);
-      displayError('Failed to fetch available servers. Please try again later.');
+      console.error('Error initializing episode page:', error);
+      displayError('Failed to load episode information. Please try again later.');
     }
   } else {
     displayError('Invalid episode information. Please check the URL.');
   }
 }
 
-function displayServerOptions(servers: string[], episodeId: string): void {
+function populateEpisodesList(animeDetails: any, animeId: string, currentEpisode: number): void {
+  const episodesContainer = document.getElementById('episodes');
+  if (episodesContainer && animeDetails.episodes) {
+    episodesContainer.innerHTML = ''; // Clear existing content
+    animeDetails.episodes.forEach((episode: any) => {
+      const button = document.createElement('button');
+      button.textContent = `Episode ${episode.number}`;
+      button.classList.add('episode-button');
+      if (episode.number === currentEpisode) {
+        button.classList.add('current-episode');
+      }
+      button.addEventListener('click', () => {
+        window.location.href = `episode.html?id=${animeId}&ep=${episode.number}`;
+      });
+      episodesContainer.appendChild(button);
+    });
+  }
+}
+
+function displayServerOptions(servers: ServerInfo[]): void {
   const serviceSelector = document.getElementById('serviceSelector') as HTMLSelectElement;
   if (serviceSelector) {
     serviceSelector.innerHTML = '';
     servers.forEach(server => {
       const option = document.createElement('option');
-      option.value = server;
-      option.textContent = server;
+      option.value = server.url;
+      option.textContent = server.name;
       serviceSelector.appendChild(option);
     });
 
     serviceSelector.onchange = (ev: Event) => {
       const target = ev.target as HTMLSelectElement;
-      fetchStreamingLinks(episodeId, target.value);
+      loadVideoPlayer(target.value);
     };
 
-    // Fetch streaming links for the first server by default
+    // Load the first server by default
     if (servers.length > 0) {
-      fetchStreamingLinks(episodeId, servers[0]);
+      loadVideoPlayer(servers[0].url);
     }
   }
 }
 
-async function fetchStreamingLinks(episodeId: string, serverName: string): Promise<void> {
-  try {
-    const data = await getStreamingLinks(episodeId, serverName);
-    displayVideoPlayer(data);
-  } catch (error) {
-    console.error('Error fetching streaming links:', error);
-    displayError('Failed to fetch streaming links. Please try another source or service.');
-  }
-}
-
-function displayVideoPlayer(data: ServerResponse): void {
+function loadVideoPlayer(serverUrl: string): void {
   const videoContainer = document.getElementById('videoContainer');
-  const qualitySelector = document.getElementById('qualitySelector') as HTMLSelectElement;
-
-  if (videoContainer && qualitySelector) {
+  if (videoContainer) {
     videoContainer.innerHTML = '';
-    qualitySelector.innerHTML = '';
-
-    if (data.sources && data.sources.length > 0) {
-      const video = document.createElement('video');
-      video.controls = true;
-      video.style.width = '100%';
-      video.style.maxWidth = '1280px';
-      video.style.height = 'auto';
-
-      // Sort sources by quality
-      const sortedSources = data.sources.sort((a, b) => {
-        const qualityA = parseInt(a.quality) || 0;
-        const qualityB = parseInt(b.quality) || 0;
-        return qualityB - qualityA;
-      });
-
-      // Add sources to video element and populate quality selector
-      sortedSources.forEach(source => {
-        const sourceElement = document.createElement('source');
-        sourceElement.src = source.url;
-        sourceElement.type = 'video/mp4';
-        video.appendChild(sourceElement);
-
-        const option = document.createElement('option');
-        option.value = source.url;
-        option.textContent = source.quality;
-        qualitySelector.appendChild(option);
-      });
-
-      video.onerror = () => {
-        displayError('Unable to load video. Please try another source or service.');
-      };
-
-      videoContainer.appendChild(video);
-
-      qualitySelector.onchange = (ev: Event) => {
-        const target = ev.target as HTMLSelectElement;
-        video.src = target.value;
-        video.play();
-      };
-    } else {
-      displayError('No video sources available for this episode.');
-    }
+    const iframe = document.createElement('iframe');
+    iframe.src = serverUrl;
+    iframe.width = '100%';
+    iframe.height = '100%';
+    iframe.allowFullscreen = true;
+    videoContainer.appendChild(iframe);
   }
 }
 

@@ -22,6 +22,12 @@ export interface Anime {
   export interface StreamingLink {
     url: string;
     quality: string;
+    isM3U8: boolean;
+  }
+
+  export interface ServerInfo {
+    name: string;
+    url: string;
   }
   
   export interface ServerResponse {

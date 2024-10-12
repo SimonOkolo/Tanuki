@@ -1,4 +1,5 @@
 const API_PROXY_URL = '/api';
+import { ServerInfo } from '../types';
 
 export async function searchAnime(query: string): Promise<any> {
     const response = await fetch(`${API_PROXY_URL}/${query}`);
@@ -29,10 +30,15 @@ export async function getAnimeDetails(id: string): Promise<any> {
     return await response.json();
 }
 
-export async function getEpisodeServers(episodeId: string): Promise<any> {
-    const response = await fetch(`${API_PROXY_URL}/servers/${episodeId}`);
-    return await response.json();
-}
+export async function getEpisodeServers(episodeId: string): Promise<ServerInfo[]> {
+    try {
+      const response = await fetch(`${API_PROXY_URL}/servers/${episodeId}`);
+      return await handleApiResponse(response);
+    } catch (error) {
+      console.error('Error in getEpisodeServers:', error);
+      throw error;
+    }
+  }
 
 export async function getStreamingLinks(episodeId: string, server: string): Promise<any> {
     const response = await fetch(`${API_PROXY_URL}/watch/${episodeId}?server=${server}`);
@@ -59,3 +65,12 @@ export async function getTopAiringWithDetails(): Promise<any> {
     );
     return detailedAnime;
 }
+
+async function handleApiResponse(response: Response) {
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.error(`API error (${response.status}):`, errorBody);
+      throw new Error(`API request failed: ${response.statusText}\n${errorBody}`);
+    }
+    return response.json();
+  }
