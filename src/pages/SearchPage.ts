@@ -1,5 +1,5 @@
 import { searchAnime } from '../services/api';
-import { displayAnimeList, setupScrollButtons } from '../components/AnimeList';
+import { displayAnimeList } from '../components/AnimeList';
 
 export function initSearchPage(): void {
   const searchInput = document.getElementById('searchInput') as HTMLInputElement;
@@ -8,7 +8,6 @@ export function initSearchPage(): void {
 
   if (searchInput && searchButton && searchResults) {
     searchButton.addEventListener('click', () => performSearch(searchInput.value, searchResults));
-    setupScrollButtons('searchResults');
   }
 }
 

@@ -1,5 +1,5 @@
 import { getEpisodeServers, getAnimeDetails } from '../services/api';
-import { ServerInfo } from '../types';
+import { ServerInfo, AnimeDetails } from '../types';
 
 export async function initEpisodePage(): Promise<void> {
   const urlParams = new URLSearchParams(window.location.search);
@@ -15,6 +15,7 @@ export async function initEpisodePage(): Promise<void> {
       const servers = await getEpisodeServers(episodeId);
       console.log('Available servers:', servers);
       displayServerOptions(servers);
+      displayAnimeInformation(animeDetails);
     } catch (error) {
       console.error('Error initializing episode page:', error);
       displayError('Failed to load episode information. Please try again later.');
@@ -87,4 +88,24 @@ function displayError(message: string): void {
     console.error('Error container not found in the DOM');
     alert(`Error: ${message}`);
   }
+}
+
+function updateElement(id: string, text: string): void {
+
+  const element = document.getElementById(id);
+  if (element) {
+    element.textContent = text;
+  }
+}
+
+function displayAnimeInformation(anime: AnimeDetails): void {
+
+  const banner = document.getElementById('animeBannerSmall');
+  if (banner) {
+    banner.style.backgroundImage = `url(${anime.image})`;
+  }
+
+  updateElement('animeTitle', anime.title);
+  updateElement('animeDescription', anime.description || 'No Description Available'); ;
+  updateElement('animeStatus', `Status: ${anime.status || 'N/A'}`);
 }

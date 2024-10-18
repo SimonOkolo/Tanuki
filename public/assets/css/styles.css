@@ -344,29 +344,38 @@ main {
 }
 
 .anime-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem; /* Add gap between items */
+    padding: 1rem;
     background-color: var(--main-color);
     border-radius: 8px;
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding: 1rem;
 }
 
 .anime-list::-webkit-scrollbar {
     display: none;
 }
 
+.main-index {
+    display: flex;
+    flex-direction: row;
+}
+
+.main-lower {
+    flex: 3;
+}
+
+.main-right-lower {
+    flex: 1;
+}
 .anime-card {
     flex: 0 0 auto;
-    width: 200px;
-    height: 300px;
+    width: 190px;
+    height: 290px;
     margin-right: 1rem;
     position: relative;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: 4px;
     box-shadow: 0 4px 6px #0000001a;
     transition: transform .3s ease, box-shadow .3s ease;
 }
@@ -426,6 +435,14 @@ main {
     justify-content: flex-end;
 }
 
+#animeBannerSmall {
+    flex: 0 0 300px; /* Set a fixed width or a percentage */
+    height: 400px; /* Set a height */
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+}
+
 #animeBanner::before {
     content: '';
     position: absolute;
@@ -448,6 +465,11 @@ main {
     padding: 1rem;
     margin-bottom: 1rem;
     box-shadow: 0 2px 4px #0000001a;
+    color: #ffffff;
+}
+
+#animeInfoSub {
+    flex: 1;
     color: #ffffff;
 }
 
@@ -550,6 +572,16 @@ main {
     height: calc(100vh - 100px); /* Adjust based on your header height */
     padding: 20px;
     box-sizing: border-box;
+}
+
+.episodeInformation {
+    display: flex;
+    margin: 1rem;
+    gap: 20px;
+}
+
+.episodeInformation h3 {
+    font-family: "Protest Strike", sans-serif;
 }
 
 #videoContainer {

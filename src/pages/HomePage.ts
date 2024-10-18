@@ -1,5 +1,5 @@
 import { getRecentEpisodes, getGenres, getMovies } from '../services/api';
-import { displayAnimeList, setupScrollButtons } from '../components/AnimeList';
+import { displayAnimeList } from '../components/AnimeList';
 import { Slideshow } from '../components/Slideshow';
 
 export async function initHomePage(): Promise<void> {
@@ -18,13 +18,13 @@ export async function initHomePage(): Promise<void> {
       const slideshow = new Slideshow();
       await slideshow.init();
 
-      displayAnimeList(recentEpisodesData, recentAnime);
-      setupScrollButtons('recentAnime');
+      // Limit recent episodes to 12
+      const limitedRecentEpisodes = recentEpisodesData.slice(0, 12);
+      displayAnimeList(limitedRecentEpisodes, recentAnime);
 
       displayGenres(genresData, genresList);
-
-      displayAnimeList(moviesData, moviesAnime);
-      setupScrollButtons('moviesAnime');
+      const limitedMovies = moviesData.slice(0, 12);
+      displayAnimeList(limitedMovies, moviesAnime);
     } catch (error) {
       console.error('Error initializing home page:', error);
     }

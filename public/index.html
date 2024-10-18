@@ -29,7 +29,8 @@
                         <img id="animeImage" src="">
                         <div id="anime-info">
                             <h3 id="animeTitle"></h3>
-                            <p id="animeDescription"></p>
+                         <p id="animeDescription"></p>
+                         <button id="watchButton">Watch Now</button>
                         </div>
                     </div>
                 </div>
@@ -50,23 +51,28 @@
             <p>Discover the best anime series and movies in one place. Start browsing now.</p>
         </section>
 
-        <section id="recent">
-            <h2>Recent Episodes</h2>
-            <div class="anime-list-container">
-                <button class="nav-arrow left" id="recentLeftArrow"><i class="fas fa-chevron-left"></i></button>
-                <div class="anime-list" id="recentAnime"></div>
-                <button class="nav-arrow right" id="recentRightArrow"><i class="fas fa-chevron-right"></i></button>
+        <div class="main-index">
+            <div class="main-lower">
+                
+                <section id="recent">
+                    <h2>Recent Episodes</h2>
+                    <div class="anime-list-container">
+                        <div class="anime-list" id="recentAnime"></div>
+                    </div>
+                </section>
+        
+                <section id="movies">
+                    <h2>Movies</h2>
+                    <div class="anime-list-container">
+                        <div class="anime-list" id="moviesAnime"></div>
+                    </div>
+                </section>
             </div>
-        </section>
-
-        <section id="movies">
-            <h2>Movies</h2>
-            <div class="anime-list-container">
-                <button class="nav-arrow left" id="moviesLeftArrow"><i class="fas fa-chevron-left"></i></button>
-                <div class="anime-list" id="moviesAnime"></div>
-                <button class="nav-arrow right" id="moviesRightArrow"><i class="fas fa-chevron-right"></i></button>
+        
+            <div class="main-right-lower">
+                <p>Placeholder</p>
             </div>
-        </section>
+        </div>
     </main>
 
     <script type="module" src="/dist/app.js"></script>
