@@ -8,7 +8,6 @@
 
 body {
     font-family: "Fredoka", sans-serif;
-    line-height: 1.6;
     margin: 0;
     padding: 0;
     background-color: var(--main-color);
@@ -35,15 +34,46 @@ body::before {
 
 header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     background-color: var(--main-color);
     color: #fff;
 }
 
+footer {
+    position: fixed;
+    bottom: 0;
+    margin: 1rem;
+}
+
+.header-centre {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
+}
+
+.header-centre a {
+    justify-content: center;
+    width: auto;
+    height: auto;
+}
+
 .logo {
-    padding-top: 10px;
-    height: 50px;
+    display: block;
+    margin: 0.5rem;
+    padding-left: 0.5rem;
+    max-width: 180px;
+}
+
+.login-button {
+    background-color: #00000000;
+}
+
+#loginForm {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
 }
 
 nav ul {
@@ -410,6 +440,13 @@ main {
 .anime-info h3 {
     margin: 0 0 .5rem;
     font-size: 1rem;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
 }
 
 .anime-info p {
