@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tanuki - Episode</title>
+    <title>User Profile - Tanuki</title>
     <link rel="icon" type="image/x-icon" href="/assets/img/tanuki-icon.ico">
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -27,34 +27,19 @@
             </button>
         </div>
     </header>
-
+    
     <main>
-        <div id="episodeContainer">
-            <div id="videoContainer">
-                <h2 id="episodeTitle"></h2>
-                <div id="errorContainer"></div>
-                <div id="playerControls">
-                    <select id="serviceSelector"></select>
-                    <select id="qualitySelector"></select>
-                </div>
-                <div id="errorContainer"></div>
-                <!-- Video element will be inserted here by JavaScript -->
-            </div>
-            <div id="episodes">
-                <!-- Episode list will be populated here -->
-            </div>
-        </div>
-
-        <div class="episodeInformation">
-            <div id="animeBannerSmall" style="background-image: url('/path/to/banner.jpg');"></div>
-            <div id="animeInfoSub">
-                <h3 id="animeTitle">Anime Title</h3>
-                <p id="animeStatus">Status</p>
-                <p id="animeDescription">Description</p>
-            </div>
+        <div class="profile-container">
+            <h1>User Profile</h1>
+            <form id="profileForm">
+                <img id="profilePicture" src="/assets/img/default-profile.png" alt="Profile Picture">
+                <input type="file" id="profilePictureInput" accept="image/*">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <button type="submit">Update Profile</button>
+            </form>
         </div>
     </main>
-
     <script type="module" src="/dist/app.js"></script>
 </body>
 </html>
