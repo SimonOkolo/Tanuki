@@ -1,5 +1,5 @@
 const API_PROXY_URL = '/api';
-import { ServerInfo } from '../types';
+import { ServerInfo, AnimeDetails  } from '../types';
 
 export async function searchAnime(query: string): Promise<any> {
     const response = await fetch(`${API_PROXY_URL}/${query}`);
@@ -25,9 +25,12 @@ export async function getRecentEpisodes(): Promise<any> {
     return data.results;
 }
 
-export async function getAnimeDetails(id: string): Promise<any> {
-    const response = await fetch(`${API_PROXY_URL}/info/${id}`);
-    return await response.json();
+export async function getAnimeDetails(id: string): Promise<AnimeDetails> {
+  const response = await fetch(`${API_PROXY_URL}/info/${id}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch anime details: ${response.statusText}`);
+  }
+  return await response.json();
 }
 
 export async function getEpisodeServers(episodeId: string): Promise<ServerInfo[]> {
