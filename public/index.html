@@ -30,31 +30,26 @@
         <div class="top">
             <section id="popular">
                 <div id="topAiringSkeleton" style="display: none;">Loading...</div>
-                <div class="slideshow-container">
-                    <div class="slideshow-content">
-                        <img id="animeImage" src="">
-                        <div id="anime-info">
+                <div class="banner-container">
+                    <div class="banner-content">
+                        <div class="banner-image" id="animeImage"></div>
+                        <div class="banner-overlay"></div>
+                        <div class="banner-info">
                             <h3 id="animeTitle"></h3>
-                         <p id="animeDescription"></p>
-                         <button id="watchButton">Watch Now [PLACEHOLDER]</button>
+                            <p id="animeDescription"></p>
+                            <button class="banner-button" id="watchButton">Watch Now</button>
                         </div>
                     </div>
                 </div>
-            
-                <!-- Dots Navigation -->
                 <div class="dots-container" id="dotsContainer">
                     <!-- Dots will be generated dynamically here -->
                 </div>
             </section>
-
-            <section id="genres">
-                <h3>Search by genre</h3>
-                <div id="genresList"></div>
-            </section>
         </div>
 
-        <section id="welcome-bar">
-            <p>Discover the best anime series and movies in one place. Start browsing now.</p>
+        <section id="genres">
+            <h3>Search by genre</h3>
+            <div id="genresList"></div>
         </section>
 
         <div class="main-index">

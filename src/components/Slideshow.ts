@@ -27,14 +27,14 @@ export class Slideshow {
 
   private updateSlide(): void {
     const anime = this.animeList[this.currentIndex];
-    const imageElement = document.getElementById('animeImage') as HTMLImageElement;
+    const imageElement = document.getElementById('animeImage');
     const titleElement = document.getElementById('animeTitle');
     const descriptionElement = document.getElementById('animeDescription');
 
     if (imageElement && titleElement && descriptionElement) {
-      imageElement.src = anime.image;
-      titleElement.textContent = anime.title;
-      descriptionElement.textContent = anime.description || 'No description available.';
+        imageElement.style.backgroundImage = `url(${anime.image})`;
+        titleElement.textContent = anime.title;
+        descriptionElement.textContent = anime.description || 'No description available.';
     }
   }
 

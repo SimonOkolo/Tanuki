@@ -1,18 +1,21 @@
 @import "https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap";
-@import "https://fonts.googleapis.com/css2?family=Protest+Strike&display=swap";
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 :root {
-    --main-color:rgb(15, 15, 15);
+    --main-color:rgb(19, 19, 27);
     --background-color:rgb(20, 20, 20);
+    --main-font: 'Ubuntu', sans-serif; font-weight: 400;
+    --sub-font: "Ubuntu", sans-serif; font-weight: 300;
 }
 
 body {
-    font-family: "Fredoka", sans-serif;
+    font-family: var(--sub-font);
     margin: 0;
     padding: 0;
     background-color: var(--main-color);
     backdrop-filter: blur(10px);
     min-height: 100vh;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     color: #fff;
@@ -117,7 +120,7 @@ nav ul li a {
 
 main {
     padding: 0;
-    background-color: var(--background-color);
+    background-color: var(--main-color);
 }
 
 .search-container {
@@ -128,34 +131,26 @@ main {
 }
 
 .top {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    height: 550px;
-    flex: 0 0 auto;
-}
-
-#welcome-bar {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    background-color: var(--main-color);
-    text-align: center; /* Ensure text inside is centered */
+    padding: 0;
+    height: auto;
 }
 
 #popular {
-    flex: 3;
-    display: flex;
-    flex-direction: column;
+    flex: 1;
+    width: 100%;
 }
 
 #genres {
     flex: 1;
+    width: 100%;
     padding: 20px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+}
+
+#genres h3 {
+    font-family: var(--main-font);
 }
 
 .slideshow-container {
@@ -163,7 +158,7 @@ main {
     flex: 1;
     display: flex;
     overflow: hidden;
-    background-color: var(--background-color);
+    background-color: var(--main-color);
     padding: 1rem;
 }
 
@@ -181,7 +176,7 @@ main {
 }
 
 .slideshow-content::-webkit-scrollbar-track {
-    background: var(--background-color);
+    background: var(--main-color);
     border-radius: 4px;
 }
 
@@ -219,7 +214,7 @@ main {
 
 .slideshow-content #anime-info h3 {
     font-size: 48px;
-    font-family: "Protest Strike", sans-serif;
+    font-family: var(--main-font);
     font-weight: 400;
     margin-top: 0;
     margin-bottom: 10px;
@@ -351,7 +346,7 @@ main {
 }
 
 #recent h2, #movies h2 {
-    font-family: "Protest Strike", sans-serif;
+    font-family: var(--main-font);
     text-decoration: underline;
     color: #2462ff;
     margin-bottom: 0;
@@ -497,6 +492,102 @@ main {
     justify-content: space-between;
 }
 
+.banner-container {
+    width: 100%;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.banner-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 80%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease;
+}
+
+.banner-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(60% 100% at 32% 51%, #00000000 29%, var(--main-color) 76%),
+    linear-gradient(
+        to top,
+        var(--main-color) 0%,
+        transparent 40%
+    ),
+    linear-gradient(
+        to bottom,
+        var(--main-color) 0%,
+        transparent 40%
+    );
+    z-index: 1;
+}
+
+.banner-info {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 4rem;
+    color: #fff;
+    z-index: 2;
+    max-width: 600px;
+}
+
+.banner-info h3 {
+    font-size: 3rem;
+    font-family: var(--main-font);
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+    text-align: right;
+}
+
+
+.banner-info p {
+    font-size: 1.1rem;
+    margin: 0 0 1.5rem 0;
+    opacity: 0.9;
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: right;
+}
+
+.banner-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.banner-button {
+    background-color: #2462ff;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.banner-button:hover {
+    background-color: #1d4fd6;
+}
+
 #animeBanner {
     position: relative;
     height: 400px;
@@ -566,38 +657,38 @@ main {
 }
 
 #genresList {
-    overflow-y: auto;
+    overflow-x: auto; /* Changed to allow horizontal scrolling */
     flex: 1;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     gap: 10px;
-    margin-top: 10px;
-    padding-right: 10px;
+    padding: 10px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    position: relative;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.genres-wrapper {
+    display: flex;
+    gap: 10px;
+    animation: scroll 80s linear infinite; /* Slowed down to 60 seconds */
+    animation-play-state: running;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 /* Webkit browsers custom scrollbar */
 #genresList::-webkit-scrollbar {
-    width: 8px;
-}
-
-#genresList::-webkit-scrollbar-track {
-    background: #1e1e1e;
-    border-radius: 4px;
-}
-
-#genresList::-webkit-scrollbar-thumb {
-    background: #4a4a4a;
-    border-radius: 4px;
-}
-
-#genresList::-webkit-scrollbar-thumb:hover {
-    background: #5a5a5a;
-}
-
-/* Firefox custom scrollbar */
-#genresList {
-    scrollbar-width: thin;
-    scrollbar-color: #4a4a4a #5d484800;
+    display: none;
 }
 
 .genre-link {
@@ -628,7 +719,7 @@ main {
 }
 
 #selectedGenre {
-    font-family: "Protest Strike", sans-serif;
+    font-family: var(--main-font);
     margin-bottom: 20px;
 }
 
@@ -655,7 +746,7 @@ main {
 }
 
 .episodeInformation h3 {
-    font-family: "Protest Strike", sans-serif;
+    font-family: var(--main-font);
 }
 
 #videoContainer {

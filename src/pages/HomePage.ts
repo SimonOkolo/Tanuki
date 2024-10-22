@@ -31,13 +31,92 @@ export async function initHomePage(): Promise<void> {
   }
 }
 
-function displayGenres(genres: { id: string, title: string }[], container: HTMLElement): void {
+function displayGenres(genres: { id: string; title: string }[], container: HTMLElement): void {
   container.innerHTML = '';
+  
+  // Create wrapper for the scrolling content
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('genres-wrapper');
+  
+  // Create original set of genres
   genres.forEach(genre => {
-    const genreLink = document.createElement('a');
-    genreLink.textContent = genre.title;
-    genreLink.href = `genres.html?id=${genre.id}&title=${encodeURIComponent(genre.title)}`;
-    genreLink.classList.add('genre-link');
-    container.appendChild(genreLink);
+      const genreLink = document.createElement('a');
+      genreLink.textContent = genre.title;
+      genreLink.href = `genres.html?id=${genre.id}&title=${encodeURIComponent(genre.title)}`;
+      genreLink.classList.add('genre-link');
+      wrapper.appendChild(genreLink);
+  });
+  
+  // Clone genres for seamless loop
+  const clone = wrapper.cloneNode(true);
+  wrapper.appendChild(clone.childNodes[0]);
+  
+  container.appendChild(wrapper);
+
+  let timeoutId: number | null = null;
+  let isHovered = false;
+  let isManuallyScrolling = false;
+  
+  // Function to pause animation
+  const pauseScroll = () => {
+      wrapper.style.animationPlayState = 'paused';
+      if (timeoutId) {
+          window.clearTimeout(timeoutId);
+      }
+  };
+  
+  // Function to resume animation
+  const resumeScroll = () => {
+      if (!isHovered && !isManuallyScrolling) {
+          wrapper.style.animationPlayState = 'running';
+      }
+  };
+  
+  // Event listeners for mouse interaction
+  container.addEventListener('mouseenter', () => {
+      isHovered = true;
+      pauseScroll();
+  });
+  
+  container.addEventListener('mouseleave', () => {
+      isHovered = false;
+      timeoutId = window.setTimeout(resumeScroll, 3000); // Changed to 3 seconds
+  });
+  
+  // Event listeners for scroll interaction
+  let scrollTimeout: number | null = null;
+  container.addEventListener('wheel', () => {
+      isManuallyScrolling = true;
+      pauseScroll();
+      
+      if (scrollTimeout) {
+          window.clearTimeout(scrollTimeout);
+      }
+      
+      scrollTimeout = window.setTimeout(() => {
+          isManuallyScrolling = false;
+          if (!isHovered) {
+              resumeScroll();
+          }
+      }, 3000); // Changed to 3 seconds
+  });
+
+  // Handle touch events for mobile
+  container.addEventListener('touchstart', () => {
+      isManuallyScrolling = true;
+      pauseScroll();
+  });
+
+  container.addEventListener('touchend', () => {
+      if (scrollTimeout) {
+          window.clearTimeout(scrollTimeout);
+      }
+      
+      scrollTimeout = window.setTimeout(() => {
+          isManuallyScrolling = false;
+          if (!isHovered) {
+              resumeScroll();
+          }
+      }, 3000); // Changed to 3 seconds
   });
 }
