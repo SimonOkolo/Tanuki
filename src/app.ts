@@ -8,6 +8,7 @@ import { initProfilePage } from './pages/UserProfilePage';
 import { auth } from './services/firebase';
 import { onAuthStateChanged, User } from "firebase/auth";
 import { getUserProfile } from './services/auth';
+import { SearchBar } from './components/SearchBar';
 
 async function updateUIForAuthState(user: User | null) {
   const profileButton = document.getElementById('profile-button') as HTMLButtonElement;
@@ -37,6 +38,11 @@ function initAuthStateListener() {
   onAuthStateChanged(auth, (user) => {
     updateUIForAuthState(user);
   });
+}
+
+const searchContainer = document.getElementById('search-container');
+if (searchContainer) {
+    new SearchBar(searchContainer);
 }
 
 function initPage() {

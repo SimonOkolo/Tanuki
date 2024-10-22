@@ -1,10 +1,10 @@
 const API_PROXY_URL = '/api';
-import { ServerInfo, AnimeDetails  } from '../types';
+import { ServerInfo, AnimeDetails, Anime  } from '../types';
 
-export async function searchAnime(query: string): Promise<any> {
-    const response = await fetch(`${API_PROXY_URL}/${query}`);
-    const data = await response.json();
-    return data.results;
+export async function searchAnime(query: string): Promise<Anime[]> {
+  const response = await fetch(`${API_PROXY_URL}/${query}`);
+  const data = await response.json();
+  return data.results;
 }
 
 export async function getTopAiring(): Promise<any> {
