@@ -4,6 +4,7 @@
 :root {
     --main-color:rgb(19, 19, 27);
     --background-color:rgb(20, 20, 20);
+    --accent-color: #2462ff;
     --main-font: 'Ubuntu', sans-serif; font-weight: 400;
     --sub-font: "Ubuntu", sans-serif; font-weight: 300;
 }
@@ -335,20 +336,19 @@ main {
 }
 
 .dot.active {
-    background-color: #2462ff;
+    background-color: var(--accent-color);
 }
 
 #recent, #movies {
     padding: 1rem;
     padding-left: 4rem;
     padding-right: 4rem;
-    background-color: var(--background-color);
 }
 
 #recent h2, #movies h2 {
     font-family: var(--main-font);
     text-decoration: underline;
-    color: #2462ff;
+    color: var(--accent-color);
     margin-bottom: 0;
 }
 
@@ -494,7 +494,7 @@ main {
 
 .banner-container {
     width: 100%;
-    height: 600px;
+    height: 550px;
     position: relative;
     overflow: hidden;
 }
@@ -574,7 +574,7 @@ main {
 }
 
 .banner-button {
-    background-color: #2462ff;
+    background-color: var(--accent-color);
     color: white;
     border: none;
     padding: 0.8rem 2rem;
@@ -626,7 +626,6 @@ main {
 
 #animeInfo {
     flex: 1;
-    background-color: #0e0e0e;
     padding: 1rem;
     margin-bottom: 1rem;
     box-shadow: 0 2px 4px #0000001a;
@@ -640,7 +639,6 @@ main {
 
 #episodesList {
     flex: 5;
-    background-color: #0e0e0e;
 }
 
 #episodesContainer {
@@ -858,7 +856,7 @@ nav {
 }
 
 .search-input:focus {
-    border-color: #2462ff;
+    border-color: var(--accent-color);
 }
 
 .search-button:hover {
@@ -955,4 +953,191 @@ nav {
 
 .prediction-item:hover {
     background-color: #2a2a2a;
+}
+
+.profile-hero {
+    position: relative;
+    width: 100%;
+    height: 12rem;
+    background-color: #1a1a1a;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 4rem;
+}
+
+.profile-hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--accent-color), #9333ea);
+    opacity: 0.5;
+}
+
+.profile-picture-container {
+    position: absolute;
+    bottom: 0rem;
+    left: 2rem;
+}
+
+.profile-picture-wrapper {
+    position: relative;
+    width: 7rem;
+    height: 7rem;
+    border-radius: 9999px;
+    border: 4px solid #13131b;
+    overflow: hidden;
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.camera-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s;
+    cursor: pointer;
+}
+
+.profile-picture-wrapper:hover .camera-overlay {
+    opacity: 1;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+@media (min-width: 768px) {
+    .content-grid {
+        grid-template-columns: 1fr 2fr;
+        padding: 2rem;
+    }
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.username-section {
+    background-color: #1a1a1a;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+}
+
+.username-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.username {
+    font-family: var(--sub-font);
+    font-size: 2rem;
+    background-color: #00000000;
+    color: #fff;
+    border: none;
+    border-bottom: 4px solid #ffffff;
+}
+
+#submit {
+    flex: 1;
+    background-color: #00000000;
+    color: #fff;
+}
+
+#profileForm button {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding: 0.5rem;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.stat-card {
+    background-color: #1a1a1a;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.stat-icon {
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.stat-value {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #9ca3af;
+}
+
+.watching-section {
+    background-color: #1a1a1a;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+}
+
+.watching-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.anime-card:hover .anime-cover {
+    transform: scale(1.05);
+}
+
+.anime-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.75rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.anime-card:hover .anime-info {
+    opacity: 1;
+}
+
+.anime-title {
+    font-size: 0.875rem;
+    font-weight: bold;
+}
+
+.anime-progress {
+    font-size: 0.75rem;
+    color: #d1d5db;
+}
+
+/* Icon colors */
+.icon-blue { color: #60a5fa; }
+.icon-red { color: #f87171; }
+.icon-yellow { color: #fbbf24; }
+.icon-green { color: #34d399; }
+
+#profilePictureInput {
+    display: none;
 }

@@ -14,7 +14,6 @@
             <a href="index.html">
                 <img src="/assets/img/tanuki-logo.png" alt="Tanuki logo" class="logo">
             </a>
-            
             <nav>
                 <div id="search-container" class="relative"></div>
             </nav>
@@ -25,17 +24,81 @@
             </button>
         </div>
     </header>
-    
+
     <main>
-        <div class="profile-container">
-            <h1>User Profile</h1>
-            <form id="profileForm">
-                <img id="profilePicture" src="/assets/img/default-profile.png" alt="Profile Picture">
-                <input type="file" id="profilePictureInput" accept="image/*">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-                <button type="submit">Update Profile</button>
-            </form>
+        <div class="profile-hero">
+            <div class="profile-hero-gradient"></div>
+            <div class="profile-picture-container">
+                <div class="profile-picture-wrapper">
+                    <img id="profilePicture" src="/assets/img/default-profile.png" alt="Profile Picture" class="profile-picture">
+                    <label class="camera-overlay" for="profilePictureInput">
+                        <i class="fas fa-camera"></i>
+                    </label>
+                    <input type="file" id="profilePictureInput" accept="image/*">
+                </div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="user-info">
+                <div class="username-section">
+                    <form id="profileForm" class="username-container">
+                        <input id="username" class="username" placeholder="username"></input>
+                        <button id="submit">Submit</button>
+                    </form>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <i class="fas fa-clock icon-blue stat-icon"></i>
+                        <div class="stat-value">426 hours</div>
+                        <div class="stat-label">Watch Time</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-heart icon-red stat-icon"></i>
+                        <div class="stat-value">48</div>
+                        <div class="stat-label">Favorites</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-star icon-yellow stat-icon"></i>
+                        <div class="stat-value">156</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-film icon-green stat-icon"></i>
+                        <div class="stat-value">8</div>
+                        <div class="stat-label">Watching</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="watching-section">
+                <h3 class="text-xl font-bold mb-4">Currently Watching</h3>
+                <div class="watching-grid">
+                    <!-- Repeat this block for each anime -->
+                    <div class="anime-card">
+                        <img src="https://via.placeholder.com/200x300" alt="Anime cover" class="anime-cover">
+                        <div class="anime-info">
+                            <div class="anime-title">Anime Title 1</div>
+                            <div class="anime-progress">Episode 12 of 24</div>
+                        </div>
+                    </div>
+                    <div class="anime-card">
+                        <img src="https://via.placeholder.com/200x300" alt="Anime cover" class="anime-cover">
+                        <div class="anime-info">
+                            <div class="anime-title">Anime Title 2</div>
+                            <div class="anime-progress">Episode 8 of 24</div>
+                        </div>
+                    </div>
+                    <div class="anime-card">
+                        <img src="https://via.placeholder.com/200x300" alt="Anime cover" class="anime-cover">
+                        <div class="anime-info">
+                            <div class="anime-title">Anime Title 3</div>
+                            <div class="anime-progress">Episode 15 of 24</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
     <script type="module" src="/dist/app.js"></script>

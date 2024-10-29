@@ -9,6 +9,7 @@ import { auth } from './services/firebase';
 import { onAuthStateChanged, User } from "firebase/auth";
 import { getUserProfile } from './services/auth';
 import { SearchBar } from './components/SearchBar';
+import { AuthGuard } from './services/authGuard';
 
 async function updateUIForAuthState(user: User | null) {
   const profileButton = document.getElementById('profile-button') as HTMLButtonElement;
@@ -17,16 +18,20 @@ async function updateUIForAuthState(user: User | null) {
 
   if (user) {
     // User is signed in
-    const userProfile = await getUserProfile(user.uid);
-    if (userProfile.profilePictureURL) {
-      profileImage.src = userProfile.profilePictureURL;
-    }
-    profileButton.style.display = 'block';
-    if (loginNavItem) loginNavItem.style.display = 'none';
+    try {
+      const userProfile = await getUserProfile(user.uid);
+      if (userProfile?.profilePictureURL) {
+        profileImage.src = userProfile.profilePictureURL;
+      }
+      profileButton.style.display = 'block';
+      if (loginNavItem) loginNavItem.style.display = 'none';
 
-    profileButton.onclick = () => {
-      window.location.href = 'userprofile.html';
-    };
+      profileButton.onclick = () => {
+        window.location.href = 'userprofile.html';
+      };
+    } catch (error) {
+      console.error("Error updating UI for auth state:", error);
+    }
   } else {
     // No user is signed in
     profileButton.style.display = 'none';
@@ -40,13 +45,28 @@ function initAuthStateListener() {
   });
 }
 
-const searchContainer = document.getElementById('search-container');
-if (searchContainer) {
-    new SearchBar(searchContainer);
+// Initialize both authentication listeners
+function initAuth() {
+  initAuthStateListener();
+  AuthGuard.init();
 }
 
-function initPage() {
+async function initPage() {
+  // Validate access before initializing the page
+  const hasAccess = await AuthGuard.validateAccess();
+  if (!hasAccess) {
+    return; // Stop initialization if access is not granted
+  }
+
   const currentPage = window.location.pathname.split('/').pop();
+  
+  // Initialize search bar if container exists
+  const searchContainer = document.getElementById('search-container');
+  if (searchContainer) {
+    new SearchBar(searchContainer);
+  }
+
+  // Initialize page based on current route
   switch (currentPage) {
     case 'index.html':
     case '':
@@ -73,8 +93,19 @@ function initPage() {
     default:
       console.error('Unknown page');
   }
-
-  initAuthStateListener();
 }
 
-document.addEventListener('DOMContentLoaded', initPage);
+// Initialize everything when the DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize auth first
+  initAuth();
+  // Then initialize the page
+  initPage().catch(error => {
+    console.error('Error initializing page:', error);
+  });
+});
+
+// Handle errors globally
+window.addEventListener('error', (event) => {
+  console.error('Global error:', event.error);
+});
