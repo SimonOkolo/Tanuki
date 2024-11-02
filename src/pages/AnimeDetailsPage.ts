@@ -1,9 +1,12 @@
 import { getAnimeDetails } from '../services/api';
 import { AnimeDetails, Episode } from '../types';
+import { saveAnimeToProfile } from '../services/auth';
+import { auth } from '../services/firebase';
 
 export async function initAnimeDetailsPage(): Promise<void> {
   const urlParams = new URLSearchParams(window.location.search);
   const animeId = urlParams.get('id');
+  const user = auth.currentUser;
 
   if (animeId) {
     try {

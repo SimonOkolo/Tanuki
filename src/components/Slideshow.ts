@@ -33,7 +33,12 @@ export class Slideshow {
 
     if (imageElement && titleElement && descriptionElement) {
         imageElement.style.backgroundImage = `url(${anime.image})`;
-        titleElement.textContent = anime.title;
+        if (anime.otherName) {
+          titleElement.textContent = anime.otherName;
+        } else {
+          titleElement.textContent = anime.title;
+        }
+        
         descriptionElement.textContent = anime.description || 'No description available.';
     }
   }

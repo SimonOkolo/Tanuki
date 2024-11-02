@@ -1,18 +1,16 @@
-import { getRecentEpisodes, getGenres, getMovies } from '../services/api';
+import { getRecentEpisodes, getGenres } from '../services/api';
 import { displayAnimeList } from '../components/AnimeList';
 import { Slideshow } from '../components/Slideshow';
 
 export async function initHomePage(): Promise<void> {
   const recentAnime = document.getElementById('recentAnime');
   const genresList = document.getElementById('genresList');
-  const moviesAnime = document.getElementById('moviesAnime');
 
-  if (recentAnime && genresList && moviesAnime) {
+  if (recentAnime && genresList) {
     try {
-      const [recentEpisodesData, genresData, moviesData] = await Promise.all([
+      const [recentEpisodesData, genresData] = await Promise.all([
         getRecentEpisodes(),
         getGenres(),
-        getMovies()
       ]);
 
       const slideshow = new Slideshow();
@@ -23,8 +21,6 @@ export async function initHomePage(): Promise<void> {
       displayAnimeList(limitedRecentEpisodes, recentAnime);
 
       displayGenres(genresData, genresList);
-      const limitedMovies = moviesData.slice(0, 12);
-      displayAnimeList(limitedMovies, moviesAnime);
     } catch (error) {
       console.error('Error initializing home page:', error);
     }

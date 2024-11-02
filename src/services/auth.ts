@@ -1,7 +1,8 @@
 import { auth, db, storage } from './firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
-import { doc, setDoc, getDoc, updateDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { doc, setDoc, getDoc, deleteDoc, updateDoc, collection, query, where, getDocs } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { Episode } from '../types';
 
 export async function registerUser(email: string, password: string, username: string) {
   try {
@@ -93,40 +94,57 @@ export async function uploadProfilePicture(user: User, file: File) {
       console.error("Error uploading profile picture:", error);
       throw error;
     }
-  }
-  
-  export async function updateUserProfile(user: User, data: { username?: string, profilePicture?: File }) {
-    try {
-      const userRef = doc(db, "users", user.uid);
-      const updateData: any = {};
-  
-      if (data.username) {
-        updateData.username = data.username;
-      }
-  
-      if (data.profilePicture) {
-        const profilePictureURL = await uploadProfilePicture(user, data.profilePicture);
-        updateData.profilePictureURL = profilePictureURL;
-      }
-  
-      await updateDoc(userRef, updateData);
-    } catch (error) {
-      console.error("Error updating user profile:", error);
-      throw error;
+}
+
+export async function updateUserProfile(user: User, data: { username?: string, profilePicture?: File }) {
+  try {
+    const userRef = doc(db, "users", user.uid);
+    const updateData: any = {};
+
+    if (data.username) {
+      updateData.username = data.username;
     }
-  }
-  
-  export async function getUserProfile(userId: string) {
-    try {
-      const userRef = doc(db, "users", userId);
-      const userSnap = await getDoc(userRef);
-      if (userSnap.exists()) {
-        return userSnap.data();
-      } else {
-        throw new Error("User not found");
-      }
-    } catch (error) {
-      console.error("Error getting user profile:", error);
-      throw error;
+
+    if (data.profilePicture) {
+      const profilePictureURL = await uploadProfilePicture(user, data.profilePicture);
+      updateData.profilePictureURL = profilePictureURL;
     }
+
+    await updateDoc(userRef, updateData);
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    throw error;
   }
+}
+
+export async function getUserProfile(userId: string): Promise<any> {
+  const userDoc = doc(db, 'users', userId);
+  const docSnap = await getDoc(userDoc);
+  if (docSnap.exists()) {
+    return docSnap.data();
+  } else {
+    console.log("No such document!");
+    return null;
+  }
+}
+
+//ANIME EPISODE SAVING
+
+export async function saveAnimeToProfile(userId: string, animeId: string, episode: Episode): Promise<void> {
+  const userDoc = doc(db, 'users', userId);
+  const watchingCollection = collection(userDoc, 'watching');
+  const animeDoc = doc(watchingCollection, animeId);
+  const animeData = {
+    animeId,
+    episode,
+    timestamp: new Date()
+  };
+  await setDoc(animeDoc, animeData);
+}
+
+export async function removeAnimeFromProfile(userId: string, animeId: string): Promise<void> {
+  const userDoc = doc(db, 'users', userId);
+  const watchingCollection = collection(userDoc, 'watching');
+  const animeDoc = doc(watchingCollection, animeId);
+  await deleteDoc(animeDoc);
+}

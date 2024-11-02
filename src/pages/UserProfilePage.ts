@@ -1,5 +1,6 @@
 import { auth } from '../services/firebase';
 import { updateUserProfile, getUserProfile } from '../services/auth';
+import { initCurrentlyWatching } from '../components/CurrentlyWatching';
 
 export function initProfilePage() {
   const profileForm = document.getElementById('profileForm') as HTMLFormElement;
@@ -39,4 +40,5 @@ export function initProfilePage() {
   });
 
   loadUserProfile();
+  initCurrentlyWatching();
 }
