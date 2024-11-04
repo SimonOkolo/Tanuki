@@ -12,12 +12,12 @@
   ],
   "routes": [
     {
-      "src": "/cors-anywhere/(.*)",
-      "dest": "/api/v1/$1"
+      "src": "/cors-anywhere",
+      "dest": "/cors-anywhere"
     },
     {
-      "src": "/api.consumet.org/(.*)",
-      "dest": "/api/v2/$1"
+      "src": "/api.consumet.org",
+      "dest": "//api.consumet.org"
     },
     {
       "src": "/(.*)",
