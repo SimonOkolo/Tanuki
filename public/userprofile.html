@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/assets/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body style="overflow: hidden;">
     <header>
         <div class="header-centre">
             <a href="index.html">
@@ -25,7 +25,10 @@
         </div>
     </header>
 
+    <!-- General main to differentiate between profile and "main" main -->
     <main class="userProfileMain">
+
+        <!-- Profile Nav Bar -->
         <div class="profile-nav-bar">
             <button>
                 <div class="profile-nav-bar-item" id="profile-nav-bar-item-1">
@@ -47,61 +50,86 @@
                     <span>Preferences</span>
                 </div>
             </button>
+        </div>
+
+        <div class="usersettings">
+            <!--When user presses account section-->
+            <div class="profile">
+                <div class="profile-hero">
+                    <div class="profile-picture-container">
+                        <div class="profile-picture-wrapper">
+                            <img id="profilePicture" src="/assets/img/default-profile.png" alt="Profile Picture" class="profile-picture">
+                            <label class="camera-overlay" for="profilePictureInput">
+                                <i class="fas fa-camera"></i>
+                            </label>
+                            <input type="file" id="profilePictureInput" accept="image/*">
+                        </div>
+                    </div>
+                </div>
             
-        </div>
-        <div class="account">
-            <div class="profile-hero">
-                <div class="profile-hero-gradient"></div>
-                <div class="profile-picture-container">
-                    <div class="profile-picture-wrapper">
-                        <img id="profilePicture" src="/assets/img/default-profile.png" alt="Profile Picture" class="profile-picture">
-                        <label class="camera-overlay" for="profilePictureInput">
-                            <i class="fas fa-camera"></i>
-                        </label>
-                        <input type="file" id="profilePictureInput" accept="image/*">
+
+                <div class="user-stats">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <i class="fas fa-clock icon-blue stat-icon"></i>
+                                <div class="stat-value">426 hours</div>
+                                <div class="stat-label">Watch Time</div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-heart icon-red stat-icon"></i>
+                                <div class="stat-value">48</div>
+                                <div class="stat-label">Favorites</div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-star icon-yellow stat-icon"></i>
+                                <div class="stat-value">156</div>
+                                <div class="stat-label">Completed</div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-film icon-green stat-icon"></i>
+                                <div class="stat-value">8</div>
+                                <div class="stat-label">Watching</div>
+                            </div>
+                        </div>
+                    </div>  
+                <div class="content-grid">
+                    <div class="user-info">
+                        <div class="input-section">
+                            <p>Username</p>
+                            <form id="profileForm" class="username-container">
+                                <input id="username" class="profile-input" placeholder="username"></input>
+                                <button id="submit">Submit</button>
+                            </form>
+                        </div>
+
+                        <div class="input-section">
+                            <p>Email</p>
+                            <form id="profileForm" class="email-container">
+                                <input id="email" class="profile-input" placeholder="email" readonly></input>
+                                <button id="submit">Submit</button>
+                            </form>
+                        </div>
+
+                        
                     </div>
+                    
                 </div>
             </div>
-        
-
-            <div class="content-grid">
-                <div class="user-info">
-                    <div class="username-section">
-                        <form id="profileForm" class="username-container">
-                            <input id="username" class="username" placeholder="username"></input>
-                            <button id="submit">Submit</button>
-                        </form>
-                    </div>
-
-                    <div class="stats-grid">
-                        <div class="stat-card">
-                            <i class="fas fa-clock icon-blue stat-icon"></i>
-                            <div class="stat-value">426 hours</div>
-                            <div class="stat-label">Watch Time</div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-heart icon-red stat-icon"></i>
-                            <div class="stat-value">48</div>
-                            <div class="stat-label">Favorites</div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-star icon-yellow stat-icon"></i>
-                            <div class="stat-value">156</div>
-                            <div class="stat-label">Completed</div>
-                        </div>
-                        <div class="stat-card">
-                            <i class="fas fa-film icon-green stat-icon"></i>
-                            <div class="stat-value">8</div>
-                            <div class="stat-label">Watching</div>
-                        </div>
-                    </div> 
-                </div>
+            
+            <!--When user presses continueWatching section-->
+            <div class="continueWatching">
+                <div class="watching-section"></div>
             </div>
+
+            <!--When user presses preferences section-->
+            <div class="preferences">
+                <div class="preferences-section">
+                    <div class="preferences-title">Preferences</div>
+                    <div class="preferences-grid"></div>
+                </div>
+            </div> 
         </div>
-        
-        <div class="continueWatching">
-            <div class="watching-section"></div>
-        </div>
+
 
     </main>
     <script type="module" src="/dist/app.js"></script>

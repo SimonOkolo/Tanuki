@@ -32,6 +32,7 @@ async function loadWatchingList(): Promise<WatchingAnime[]> {
           animeId: data.animeId,
           episode: data.episode,
           title: animeDetails.title,
+          description: animeDetails.description,
           otherName: animeDetails.otherName,
           image: animeDetails.image,
           releaseDate: animeDetails.releaseDate,
@@ -53,7 +54,6 @@ function calculateProgress(currentEpisode: number, totalEpisodes: number): numbe
 
 function renderWatchingList(container: Element, animeList: WatchingAnime[]) {
   container.innerHTML = `
-    <h3 class="section-title">Currently Watching</h3>
     <div class="watching-grid">
       ${animeList.map(anime => createWatchingCard(anime)).join('')}
     </div>
@@ -87,6 +87,8 @@ function createWatchingCard(anime: WatchingAnime): string {
         </div>
         <div class="watching-card-info">
           <h4 class="watching-card-title">${anime.title}</h4>
+          <p>${anime.status}</p>
+          <p class="watching-card-description">${anime.description}</p>
           <div class="watching-card-progress">
             <div class="progress-bar">
               <div class="progress-bar-fill" style="width: ${progress}%"></div>

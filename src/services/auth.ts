@@ -96,7 +96,7 @@ export async function uploadProfilePicture(user: User, file: File) {
     }
 }
 
-export async function updateUserProfile(user: User, data: { username?: string, profilePicture?: File }) {
+export async function updateUserProfile(user: User, data: { username?: string, email?: string, profilePicture?: File }) {
   try {
     const userRef = doc(db, "users", user.uid);
     const updateData: any = {};

@@ -4,7 +4,7 @@
   "description": "Anime website using Consumet API and TypeScript",
   "main": "dist/app.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack --mode development",
     "dev": "webpack serve --mode development",
     "start": "npm run build && http-server dist"
   },

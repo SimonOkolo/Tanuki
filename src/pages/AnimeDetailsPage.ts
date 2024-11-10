@@ -24,9 +24,11 @@ export async function initAnimeDetailsPage(): Promise<void> {
 function displayAnimeDetails(anime: AnimeDetails): void {
   document.title = `Tanuki - ${anime.title}`;
 
-  const banner = document.getElementById('animeBanner');
-  if (banner) {
+  const banner = document.getElementById('animeDetailsMain');
+  const image = document.getElementById('animeBanner')
+  if (banner && image) {
     banner.style.backgroundImage = `url(${anime.image})`;
+    image.style.backgroundImage = `url(${anime.image})`;
   }
 
   updateElement('animeTitle', anime.title);
