@@ -30,6 +30,7 @@ export class Slideshow {
     const imageElement = document.getElementById('animeImage');
     const titleElement = document.getElementById('animeTitle');
     const descriptionElement = document.getElementById('animeDescription');
+    const animeButton = document.getElementById('watchButton');
 
     if (imageElement && titleElement && descriptionElement) {
         imageElement.style.backgroundImage = `url(${anime.image})`;
@@ -41,6 +42,8 @@ export class Slideshow {
         
         descriptionElement.textContent = anime.description || 'No description available.';
     }
+
+    animeButton.onclick = () => window.location.href = `animeDetails.html?id=${anime}`;
   }
 
   private createDots(): void {

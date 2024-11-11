@@ -24,7 +24,7 @@ export async function initAnimeDetailsPage(): Promise<void> {
 function displayAnimeDetails(anime: AnimeDetails): void {
   document.title = `Tanuki - ${anime.title}`;
 
-  const banner = document.getElementById('animeDetailsMain');
+  const banner = document.getElementById('animeDetailsTop');
   const image = document.getElementById('animeBanner')
   if (banner && image) {
     banner.style.backgroundImage = `url(${anime.image})`;
@@ -33,8 +33,8 @@ function displayAnimeDetails(anime: AnimeDetails): void {
 
   updateElement('animeTitle', anime.title);
   updateElement('animeDescription', anime.description || 'No description available.');
-  updateElement('animeType', `Type: ${anime.subOrDub || 'N/A'}`);
-  updateElement('animeStatus', `Status: ${anime.status || 'N/A'}`);
+  updateElement('animeType', `${anime.subOrDub || 'N/A'}`);
+  updateElement('animeStatus', `Status:\\ ${anime.status || 'N/A'}`);
   updateElement('animeReleased', `Released: ${anime.releaseDate || 'N/A'}`);
   updateElement('animeGenres', `Genres: ${anime.genres?.join(', ') || 'N/A'}`);
 

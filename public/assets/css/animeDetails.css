@@ -1,3 +1,10 @@
+:root {
+    --main-color:rgb(19, 19, 27);
+    --background-color:rgb(20, 20, 20);
+    --accent-color: #2462ff;
+    --main-font: 'Ubuntu', sans-serif; font-weight: 400;
+    --sub-font: "Ubuntu", sans-serif; font-weight: 300;
+}
 /* Main container styles */
 #animeDetailsMain {
     color: #fff;
@@ -15,7 +22,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(19, 19, 27, 0.9);
+    background-color: rgba(19, 19, 27, 0.822);
     background-image: linear-gradient(
         0deg,
         var(--main-color) 0%,
@@ -26,10 +33,14 @@
 
 /* Top section layout */
 .animeDetailsTop {
+    color: #fff;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    padding: 2rem 0;
     display: flex;
     justify-content: space-between;
     position: relative;
-    z-index: 2;
     gap: 2rem;
 }
 
@@ -53,6 +64,7 @@
     flex-direction: column;
     gap: 2rem;
     padding: 0 2rem;
+    z-index: 2;
 }
 
 #animeTitle {
@@ -82,8 +94,32 @@
     margin-bottom: 2rem;
 }
 
+.watch-button {
+    appearance: none;
+    background-color: var(--accent-color);
+    border: 1px solid rgba(27, 31, 35, .15);
+    border-radius: 4px;
+    box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+    box-sizing: border-box;
+    color: #fff;
+    max-width: fit-content;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 10px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
 /* Extra details section */
 #animeExtraDetails {
+    font: var(--main-font);
     color: #272626;
     flex: 1;
     width: 250px;
@@ -93,12 +129,13 @@
     gap: 1rem;
     text-align: right;
     margin-right: 0;
+    z-index: 2;
 }
 
 #animeExtraDetails p {
     margin: 0;
     padding: 0.5rem 0;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(94, 94, 94, 0.801);
 }
 
 /* Status labels */
