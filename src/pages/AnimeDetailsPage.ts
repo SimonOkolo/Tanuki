@@ -1,6 +1,5 @@
 import { getAnimeDetails } from '../services/api';
 import { AnimeDetails, Episode } from '../types';
-import { saveAnimeToProfile } from '../services/auth';
 import { auth } from '../services/firebase';
 
 export async function initAnimeDetailsPage(): Promise<void> {
@@ -61,12 +60,7 @@ function displayEpisodes(episodes: Episode[], animeId: string): void {
       episodeNumber.className = 'episode-number';
       episodeNumber.textContent = `Episode ${ep.number}`;
       
-      const episodeTitle = document.createElement('span');
-      episodeTitle.className = 'episode-title';
-      episodeTitle.textContent = ep.title && ep.title !== "null" ? ep.title : "No Title";
-      
       li.appendChild(episodeNumber);
-      li.appendChild(episodeTitle);
       episodesContainer.appendChild(li);
     });
   }

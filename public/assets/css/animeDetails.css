@@ -6,13 +6,19 @@
     --sub-font: "Ubuntu", sans-serif; font-weight: 300;
 }
 /* Main container styles */
+
+body {
+    max-height: 100vh;
+    overflow: hidden;
+}
+
 #animeDetailsMain {
     color: #fff;
     position: relative;
     background-size: cover;
     background-position: center;
     padding: 2rem 0;
-    min-height: 100vh;
+    max-height: 100vh;
 }
 
 /* Background overlay with gradient */
@@ -37,11 +43,12 @@
     position: relative;
     background-size: cover;
     background-position: center;
-    padding: 2rem 0;
+    padding: 2rem;
     display: flex;
     justify-content: space-between;
     position: relative;
     gap: 2rem;
+    max-height: 100vh;
 }
 
 /* Anime banner/poster styles */
@@ -51,6 +58,7 @@
     position: relative;
     padding-top: 600px; /* This maintains 200:300 ratio */
     border-radius: 8px;
+    margin-bottom: 1000px;
     background-size: cover;
     background-position: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -170,4 +178,12 @@
     padding: 0.5rem 1rem;
     border-radius: 4px;
     font-size: 0.9rem;
+}
+
+@media only screen and (max-width: 1300px) {
+    body {
+        max-height: 100vh;
+        overflow: scroll;
+    }
+    
 }

@@ -43,7 +43,7 @@ export class Slideshow {
         descriptionElement.textContent = anime.description || 'No description available.';
     }
 
-    animeButton.onclick = () => window.location.href = `animeDetails.html?id=${anime}`;
+    //animeButton.onclick = () => window.location.href = `animeDetails.html?id=${anime}`;
   }
 
   private createDots(): void {

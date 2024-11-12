@@ -464,6 +464,7 @@ main {
 }
 
 .anime-title h3 {
+  font: var(--sub-font);
   margin: 0;
   font-size: 1rem;
   white-space: nowrap;
@@ -1189,11 +1190,6 @@ nav {
 
 .anime-card:hover .anime-info {
     opacity: 1;
-}
-
-.anime-title {
-    font-size: 0.875rem;
-    font-weight: bold;
 }
 
 .anime-progress {
