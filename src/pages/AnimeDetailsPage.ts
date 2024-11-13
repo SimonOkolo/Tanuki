@@ -58,7 +58,7 @@ function displayEpisodes(episodes: Episode[], animeId: string): void {
       
       const episodeNumber = document.createElement('span');
       episodeNumber.className = 'episode-number';
-      episodeNumber.textContent = `Episode ${ep.number}`;
+      episodeNumber.textContent = `${ep.number}`;
       
       li.appendChild(episodeNumber);
       episodesContainer.appendChild(li);

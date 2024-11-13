@@ -233,29 +233,6 @@ main {
     margin: 5px 0;
 }
 
-.episode-item {
-    max-width: 10rem;
-    background-color: #1a1a1a;
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: background-color 0.3s;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.episode-item:hover {
-    background-color: #2a2a2a;
-}
-
-.episode-number {
-    color: var(--background-color);
-    font-weight: bold;
-}
-
 .episode-button {
     display: block;
     width: 100%;
@@ -355,7 +332,6 @@ main {
 #recent h2 {
     font-family: var(--main-font);
     text-decoration: underline;
-    color: var(--accent-color);
     margin-bottom: 0;
 }
 
@@ -627,19 +603,6 @@ main {
 
 #episodesList {
     flex: 5;
-}
-
-#episodesContainer {
-    list-style-type: none;
-    padding: 1rem;
-}
-
-#episodesContainer li {
-    background-color: #fff;
-    margin-bottom: .5rem;
-    padding: .5rem;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px #0000001a;
 }
 
 #genresList {
