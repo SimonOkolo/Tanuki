@@ -5,8 +5,8 @@
     --main-font: 'Ubuntu', sans-serif; font-weight: 400;
     --sub-font: "Ubuntu", sans-serif; font-weight: 300;
 }
-/* Main container styles */
 
+/* Main container styles */
 body {
     max-height: 100vh;
     overflow: hidden;
