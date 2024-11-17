@@ -1,14 +1,59 @@
-  export interface Anime {
-      id: string;
-      title: string;
-      otherName: string;
-      image: string;
-      releaseDate?: string;
-      subOrDub?: string;
-      status?: string;
-      description?: string;
-      genres?: string[];
-    }
+export interface Anime {
+  id: string;
+  title: string;
+  image: string;
+  cover: string;
+  description?: string;
+  otherName?: string;
+  releaseDate?: string;
+  subOrDub?: string;
+  status?: string;
+  // AniList-related fields
+  anilistInfo?: AniListResponse;
+  genres?: string[];
+  rating?: number;
+  popularity?: number;
+  season?: string;
+  seasonYear?: number;
+  studios?: string[];
+}
+
+
+    
+export interface AniListResponse {
+  id: number;
+  title: {
+    romaji: string;
+    english: string;
+    native: string;
+  };
+  description: string;
+  cover: string;
+  image: string;
+  bannerImage: string;
+  genres: string[];
+  rating: number;
+  popularity: number;
+  episodes: number;
+  season: string;
+  seasonYear: number;
+  status: string;
+  studios: {
+    nodes: {
+      name: string;
+    }[];
+  };
+}
+
+
+export interface AnimeDetails {
+  id: string;
+  title: string;
+  image: string;
+  description?: string;
+  episodes: Episode[];
+  anilistInfo?: AniListResponse;
+}
     
     export interface Episode {
       id: string;
@@ -19,6 +64,8 @@
     export interface AnimeDetails extends Anime {
       episodes: Episode[];
     }
+    
+    
     
     export interface StreamingLink {
       url: string;

@@ -6,8 +6,8 @@ import { dirname } from 'path';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-
 const API_BASE_URL = 'http://localhost:3000/anime/gogoanime';
+const API_ANILIST_BASE_URL = 'http://localhost:3000/meta/anilist';
 
 // Resolve __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url);
@@ -32,16 +32,36 @@ app.get('*.js', (req, res, next) => {
 
 // Proxy API requests
 app.use('/api', async (req, res) => {
-    const url = `${API_BASE_URL}${req.url}`;
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch data from ${url}: ${response.statusText}`);
+        let baseUrl;
+        const path = req.url;
+
+        // Determine which API to use based on the request path
+        if (path.includes('/anilist')) {
+            baseUrl = API_ANILIST_BASE_URL;
+            // Remove '/anilist' from the path to match the actual API endpoint
+            const cleanPath = path.replace('/anilist', '');
+            const url = `${baseUrl}${cleanPath}`;
+            console.log('Fetching from AniList API:', url);
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data from ${url}: ${response.statusText}`);
+            }
+            const data = await response.json();
+            res.json(data);
+        } else {
+            // Default to GogoAnime API
+            const url = `${API_BASE_URL}${path}`;
+            console.log('Fetching from GogoAnime API:', url);
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data from ${url}: ${response.statusText}`);
+            }
+            const data = await response.json();
+            res.json(data);
         }
-        const data = await response.json();
-        res.json(data);
     } catch (error) {
-        console.error(`Error fetching data from ${url}:`, error);
+        console.error(`Error fetching data:`, error);
         res.status(500).json({ error: 'Failed to fetch data' });
     }
 });

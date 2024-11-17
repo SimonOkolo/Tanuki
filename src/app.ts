@@ -32,10 +32,6 @@ async function updateUIForAuthState(user: User | null) {
     } catch (error) {
       console.error("Error updating UI for auth state:", error);
     }
-  } else {
-    // No user is signed in
-    profileButton.style.display = 'none';
-    if (loginNavItem) loginNavItem.style.display = 'block';
   }
 }
 

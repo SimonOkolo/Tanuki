@@ -1,5 +1,5 @@
 import { Anime } from '../types';
-import { getTopAiringWithDetails } from '../services/api';
+import { getTrendingAnime } from '../services/api';
 
 export class Slideshow {
   private animeList: Anime[];
@@ -14,14 +14,14 @@ export class Slideshow {
 
   public async init(): Promise<void> {
     try {
-      if (this.animeList.length === 0) {
-        this.animeList = await getTopAiringWithDetails();
-      }
-      this.updateSlide();
-      this.createDots();
-      this.startSlideshow();
+        if (this.animeList.length === 0) {
+            this.animeList = await getTrendingAnime();
+        }
+        this.updateSlide();
+        this.createDots();
+        this.startSlideshow();
     } catch (error) {
-      console.error('Error initializing slideshow:', error);
+        console.error('Error initializing slideshow:', error);
     }
   }
 
@@ -30,19 +30,36 @@ export class Slideshow {
     const imageElement = document.getElementById('animeImage');
     const titleElement = document.getElementById('animeTitle');
     const descriptionElement = document.getElementById('animeDescription');
+    const metadataElement = document.getElementById('animeMetadata');
     const animeButton = document.getElementById('watchButton');
 
-    if (imageElement && titleElement && descriptionElement) {
-        imageElement.style.backgroundImage = `url(${anime.image})`;
-        if (anime.otherName) {
-          titleElement.textContent = anime.otherName;
-        } else {
-          titleElement.textContent = anime.title;
-        }
-        
-        descriptionElement.textContent = anime.description || 'No description available.';
+    if (imageElement && titleElement && descriptionElement && metadataElement) {
+      // Use banner image from AniList if available
+      imageElement.style.backgroundImage = `url(${anime.anilistInfo?.bannerImage || anime.image})`;
+      
+      // Use English title if available, fall back to original title
+      titleElement.textContent = anime.anilistInfo?.title?.english || anime.title;
+      
+      // Use AniList description if available
+      const cleanDescription = anime.description?.replace(/<[^>]*>/g, '') || 'No description available.';
+      descriptionElement.textContent = cleanDescription;
+
+      // Display additional metadata
+      const metadata: string[] = [];
+      if (anime.rating) metadata.push(`Score: ${anime.rating}%`);
+      if (anime.season && anime.seasonYear) {
+        metadata.push(`${anime.season} ${anime.seasonYear}`);
+      }
+      if (anime.genres && anime.genres.length > 0) {
+        metadata.push(`Genres: ${anime.genres.join(', ')}`);
+      }
+      metadataElement.innerHTML = metadata.join(' • ');
     }
 
+
+    if (animeButton && anime.id) {
+      animeButton.onclick = () => window.location.href = `animeDetails.html?id=${anime.id}`;
+    }
     //animeButton.onclick = () => window.location.href = `animeDetails.html?id=${anime}`;
   }
 
