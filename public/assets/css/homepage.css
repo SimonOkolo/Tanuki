@@ -1,9 +1,18 @@
-/* Add these styles to your styles.css */
+:root {
+    --main-color:rgb(19, 19, 27);
+    --background-color:rgb(20, 20, 20);
+    --accent-color: #2462ff;
+    --main-font: 'Ubuntu', sans-serif; font-weight: 400;
+    --sub-font: "Ubuntu", sans-serif; font-weight: 300;
+}
+
 .main-right-lower {
     background-color: rgb(15, 15, 23);
-    border-radius: 8px;
     padding: 1rem;
-    height: fit-content;
+    height: 600px; /* Or whatever height you prefer */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevents content from spilling out */
 }
 
 .main-right-lower h2 {
@@ -83,14 +92,155 @@
 
 .upcoming-meta {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 0.5rem;
     font-size: 0.875rem;
-    color: rgb(49, 49, 49);
+    color: rgb(255, 255, 255);
 }
 
 .upcoming-meta span {
-    background-color: rgba(216, 216, 216, 0.422);
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
+}
+
+.top-anime-list {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: var(--accent-color) transparent; /* For Firefox */
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.top-anime-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.top-anime-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.top-anime-list::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 4px;
+}
+
+.opening-message {
+    display: flex;
+    padding: 1rem;
+    background-color: rgb(15, 15, 23);
+    justify-content: center;
+    align-items: center;
+}
+
+.schedule-nav {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 10px;
+    margin-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.schedule-nav button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background: #2c2c2c;
+    color: #fff;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.3s;
+}
+
+.schedule-nav button:hover {
+    background: #3a3a3a;
+}
+
+.schedule-nav button.active {
+    background: #3b82f6;
+}
+
+.schedule-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 10px;
+}
+
+.schedule-card {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.schedule-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.schedule-card-image {
+    width: 50px;
+    height: 70px;
+    margin-right: 16px;
+    flex-shrink: 0;
+}
+
+.schedule-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.schedule-card-info {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    min-width: 0; /* Ensures text truncation works */
+}
+
+.schedule-card-info h3 {
+    margin: 0;
+    font-size: 1rem;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.countdown {
+    margin-left: auto;
+    padding: 4px 8px;
+    color: #9ca3af;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 40px;
+    color: #9ca3af;
+}
+
+@media (max-width: 640px) {
+    .schedule-card {
+        padding: 8px;
+    }
+    
+    .schedule-card-image {
+        width: 40px;
+        height: 56px;
+        margin-right: 12px;
+    }
+    
+    .schedule-card-info h3 {
+        font-size: 0.875rem;
+    }
+    
+    .countdown {
+        font-size: 0.75rem;
+    }
 }

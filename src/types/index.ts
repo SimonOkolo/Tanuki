@@ -39,9 +39,9 @@ export interface AniListResponse {
   seasonYear: number;
   status: string;
   studios: {
-    nodes: {
+    nodes: Array<{
       name: string;
-    }[];
+    }>;
   };
 }
 
@@ -55,45 +55,43 @@ export interface AnimeDetails {
   anilistInfo?: AniListResponse;
 }
     
-    export interface Episode {
-      id: string;
-      number: number;
-      title?: string;
-    }
+export interface Episode {
+  id: string;
+  number: number;
+  title?: string;
+}
     
-    export interface AnimeDetails extends Anime {
-      episodes: Episode[];
-    }
-    
-    
-    
-    export interface StreamingLink {
-      url: string;
-      quality: string;
-      isM3U8: boolean;
-    }
+export interface AnimeDetails extends Anime {
+  episodes: Episode[];
+}
 
-    export interface ServerInfo {
-      name: string;
-      url: string;
-    }
-    
-    export interface ServerResponse {
-      sources: StreamingLink[];
-      subtitles?: { url: string; lang: string }[];
-    }
+export interface StreamingLink {
+  url: string;
+  quality: string;
+  isM3U8: boolean;
+}
 
-    export interface WatchingAnime {
-      animeId: string;
-      episode: Episode;
-      title: string;
-      otherName: string;
-      image: string;
-      releaseDate?: string;
-      subOrDub?: string;
-      status?: string;
-      description?: string;
-      genres?: string[];
-      episodes: Episode[];
-      timestamp: Date;
-    }
+export interface ServerInfo {
+  name: string;
+  url: string;
+}
+
+export interface ServerResponse {
+  sources: StreamingLink[];
+  subtitles?: { url: string; lang: string }[];
+}
+
+export interface WatchingAnime {
+  animeId: string;
+  episode: Episode;
+  title: string;
+  otherName: string;
+  image: string;
+  releaseDate?: string;
+  subOrDub?: string;
+  status?: string;
+  description?: string;
+  genres?: string[];
+  episodes: Episode[];
+  timestamp: Date;
+}

@@ -54,18 +54,46 @@ export async function getUpcomingAnime(): Promise<Anime[]> {
     }));
   } catch (error) {
     console.error('Error fetching upcoming anime:', error);
+    throw error;  
+  }
+}
+
+//ANILIST SCHEDULE
+export async function getSchedule(): Promise<any[]> {
+  try {
+    const response = await fetch(`${ANILIST_BASE_URL}/airing-schedule`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch schedule');
+    }
+    const data = await response.json();
+    return data.results;
+  } catch (error) {
+    console.error('Error fetching schedule:', error);
     throw error;
   }
 }
 
 export async function getAniListInfo(title: string): Promise<AniListResponse | undefined> {
+  if (!title) {
+    console.warn('No title provided for AniList info');
+    return undefined;
+  }
+
   try {
     const response = await fetch(`${API_PROXY_URL}/anilist/${encodeURIComponent(title)}`);
     if (!response.ok) {
       console.warn(`No AniList data found for: ${title}`);
       return undefined;
     }
-    return await response.json();
+    const data = await response.json();
+    
+    // Validate the received data
+    if (!data || !data.title) {
+      console.warn(`Invalid AniList data for: ${title}`, data);
+      return undefined;
+    }
+    
+    return data;
   } catch (error) {
     console.error('Error fetching AniList data:', error);
     return undefined;
@@ -79,13 +107,7 @@ export async function searchAnime(query: string): Promise<Anime[]> {
 }
 
 export async function getTopAiring(): Promise<any> {
-    const response = await fetch(`${API_PROXY_URL}/top-airing`);
-    const data = await response.json();
-    return data.results;
-}
-
-export async function getMovies(): Promise<any> {
-    const response = await fetch(`${API_PROXY_URL}/movies`);
+    const response = await fetch(`${API_PROXY_URL}/top-airing`);           /*DONT THINK ITS IN USE*/
     const data = await response.json();
     return data.results;
 }
@@ -102,17 +124,38 @@ export async function getAnimeDetails(id: string): Promise<AnimeDetails> {
     throw new Error(`Failed to fetch anime details: ${response.statusText}`);
   }
   const details = await response.json();
-  const anilistInfo = await getAniListInfo(details.title);
+  
+  let anilistInfo;
+  try {
+    // First, try to search AniList with the title
+    const searchResponse = await fetch(`${API_PROXY_URL}/anilist/${encodeURIComponent(details.title)}`);
+    if (searchResponse.ok) {
+      const searchResults = await searchResponse.json();
+      
+      // If search results exist, fetch detailed info using the first result's ID
+      if (searchResults.results && searchResults.results.length > 0) {
+        const anilistId = searchResults.results[0].id;
+        const infoResponse = await fetch(`${API_PROXY_URL}/anilist/info/${anilistId}`);
+        
+        if (infoResponse.ok) {
+          anilistInfo = await infoResponse.json();
+        }
+      }
+    }
+  } catch (error) {
+    console.warn(`Could not fetch AniList info for ${details.title}:`, error);
+  }
   
   return {
     ...details,
     anilistInfo,
-    genres: anilistInfo?.genres,
+    // Provide fallback values with null checks
+    genres: anilistInfo?.genres || details.genres || [],
     score: anilistInfo?.rating,
     popularity: anilistInfo?.popularity,
     season: anilistInfo?.season,
     seasonYear: anilistInfo?.seasonYear,
-    studios: anilistInfo?.studios?.nodes?.map(node => node.name)
+    studios: anilistInfo?.studios?.nodes?.map((node: { name: string }) => node.name) || []
   };
 }
 

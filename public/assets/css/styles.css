@@ -29,6 +29,19 @@ body {
     color: #fff;
 }
 
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--accent-color);
+    border-radius: 4px;
+}
+
 body::before {
     content: "";
     position: fixed;
@@ -324,14 +337,11 @@ main {
 }
 
 #recent {
-    padding: 1rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
+    padding: 0 2rem;
 }
 
 #recent h2 {
     font-family: var(--main-font);
-    text-decoration: underline;
     margin-bottom: 0;
 }
 
@@ -373,9 +383,8 @@ main {
 .anime-list {
     display: grid;
     font-weight: 200;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 1rem; /* Add gap between items */
-    padding: 1rem;
     background-color: var(--main-color);
     border-radius: 8px;
 }
@@ -397,9 +406,10 @@ main {
     flex: 1;
 }
 .anime-card {
+    cursor: pointer;
     flex: 0 0 auto;
-    width: 190px;
-    height: 290px;
+    width: 171px;
+    height: 261px;
     margin-right: 1rem;
     position: relative;
     overflow: hidden;
@@ -430,13 +440,16 @@ main {
 }
 
 .anime-title {
+  height: auto;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: var(--background-color);
+  background-color: #1e1e1e;
   color: #fff;
   padding: 0.5rem;
+  transition: background-color 0.5s ease, height 0.5s ease;
+
 }
 
 .anime-title h3 {
@@ -1138,21 +1151,16 @@ nav {
 
 .anime-card:hover .anime-cover {
     transform: scale(1.05);
+    z-index: 5;
 }
 
-.anime-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 0.75rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-    opacity: 0;
-    transition: opacity 0.2s;
+.anime-card:hover .anime-title {
+    background-color: #1e1e1ed0;
+    height: 100px;
 }
 
-.anime-card:hover .anime-info {
-    opacity: 1;
+.anime-card:hover .anime-title h3 {
+    white-space: normal;
 }
 
 .anime-progress {
@@ -1306,4 +1314,39 @@ nav {
     font-size: 0.9em;
     color: #ccc;
     margin-bottom: 1rem;
-  }
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: rgb(15, 15, 23);
+    font-family: Arial, sans-serif;
+}
+
+.footer .copyright {
+    color: #666;
+}
+
+.footer .announce {
+    color: #666;
+}
+
+
+
+.footer nav {
+    display: flex;
+    gap: 15px;
+}
+
+.footer nav a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer nav a:hover {
+    color: #666;
+}

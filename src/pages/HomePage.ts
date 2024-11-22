@@ -1,13 +1,15 @@
-import { getRecentEpisodes, getGenres, getUpcomingAnime } from '../services/api';
+import { getRecentEpisodes, getGenres, getUpcomingAnime, getSchedule } from '../services/api';
 import { displayAnimeList } from '../components/AnimeList';
 import { Slideshow } from '../components/Slideshow';
+import { Schedule } from '../components/Schedule';
 
 export async function initHomePage(): Promise<void> {
   const recentAnime = document.getElementById('recentAnime');
   const genresList = document.getElementById('genresList');
-  const upcomingContainer = document.getElementById('main-right-lower');
+  const upcomingContainer = document.getElementById('top-anime-list');
+  const scheduleContainer = document.querySelector('.main-bottom') as HTMLElement; // Add type assertion here
 
-  if (recentAnime && genresList && upcomingContainer) {
+  if (recentAnime && genresList && upcomingContainer && scheduleContainer) {
     try {
       const [recentEpisodesData, genresData] = await Promise.all([
         getRecentEpisodes(),
@@ -24,6 +26,9 @@ export async function initHomePage(): Promise<void> {
       
       // Initialize upcoming anime section
       await displayUpcomingAnime(upcomingContainer);
+
+      // Initialize schedule component
+      const schedule = new Schedule(scheduleContainer);
     } catch (error) {
       console.error('Error initializing home page:', error);
     }
@@ -124,10 +129,9 @@ function displayGenres(genres: { id: string; title: string }[], container: HTMLE
 async function displayUpcomingAnime(container: HTMLElement): Promise<void> {
   try {
     const upcomingAnime = await getUpcomingAnime();
-    const limitedUpcoming = upcomingAnime.slice(0, 5); // Show top 5 upcoming anime
+    const limitedUpcoming = upcomingAnime.slice(0, 10); // Show top 5 top of all time anime
 
     container.innerHTML = `
-      <h2>All Time Popular</h2>
       <div class="upcoming-list">
         ${limitedUpcoming.map(anime => `
           <div class="upcoming-item">
@@ -138,7 +142,7 @@ async function displayUpcomingAnime(container: HTMLElement): Promise<void> {
             <div class="upcoming-info">
               <h3>${anime.title}</h3>
               <div class="upcoming-meta">
-                <span class="season">${anime.rating}%</span>
+                <span class="season">${anime.rating}% Average Score</span>
                 ${anime.genres ? `<span class="genres">${anime.genres.slice(0, 2).join(', ')}</span>` : ''}
               </div>
             </div>
