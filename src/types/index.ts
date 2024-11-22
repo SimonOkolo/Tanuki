@@ -22,6 +22,7 @@ export interface Anime {
     
 export interface AniListResponse {
   id: number;
+  malId: number;
   title: {
     romaji: string;
     english: string;

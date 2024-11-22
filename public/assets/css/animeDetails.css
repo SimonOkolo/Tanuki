@@ -6,11 +6,6 @@
     --sub-font: "Ubuntu", sans-serif; font-weight: 300;
 }
 
-/* Main container styles */
-body {
-    max-height: 100vh;
-    overflow: hidden;
-}
 
 #animeDetailsMain {
     color: #fff;
@@ -64,13 +59,25 @@ body {
     margin-left: 4rem;
 }
 
-/* Info section styles */
+#animeTitleContainer {
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
 #animeDetailsInfoSection {
     display: flex;
     flex-direction: column;
     gap: 2rem;
     padding: 0 2rem;
     z-index: 0;
+    height: 100%;
+    max-height: 80vh;
+    overflow: hidden;
+}
+
+h3 {
+    flex-shrink: 0;
+    margin: 0;
+    margin-top: auto; /* Push it towards the bottom */
 }
 
 #animeDetailsInfoSection h3 {
@@ -98,11 +105,41 @@ body {
 }
 
 #animeDescription {
-    max-height: 300px;
-    font-size: 1rem;
+    flex: 1;
+    overflow-y: auto;
+    margin: 0;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.9);
-    text-overflow: ellipsis;
+}
+
+#animeDescription b {
+    color: #fff;
+    font-weight: 600;
+}
+
+#animeDescription br {
+    display: block;
+    margin: 0.5rem 0;
+    content: "";
+}
+
+#animeDescription ul,
+#animeDescription ol {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+#animeDescription li {
+    margin: 0.25rem 0;
+}
+
+#animeDescription a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+#animeDescription a:hover {
+    text-decoration: underline;
 }
 
 
@@ -207,11 +244,13 @@ body {
     list-style-type: none;
     display: grid;
     gap: 2px;
-    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); /* Adjust the minimum width as needed */
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
     padding: 1rem;
-    overflow-y: scroll;
+    height: 150px; /* Fixed height for episodes section */
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    min-height: 0;
 }
-
 /* width */
 ::-webkit-scrollbar {
     width: 10px;

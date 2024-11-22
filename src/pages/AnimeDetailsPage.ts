@@ -5,14 +5,12 @@ import { auth } from '../services/firebase';
 export async function initAnimeDetailsPage(): Promise<void> {
   const urlParams = new URLSearchParams(window.location.search);
   const animeId = urlParams.get('id');
-  console.error('anime id found to be,', animeId)
   const user = auth.currentUser;
 
   if (animeId) {
     try {
       const animeDetails = await getAnimeDetails(animeId);
       displayAnimeDetails(animeDetails);
-      console.error('anime fetched is:', animeDetails)
     } catch (error) {
       console.error('Error fetching anime details:', error);
       document.body.innerHTML = '<h1>Error: Failed to fetch anime details</h1>';
@@ -24,7 +22,7 @@ export async function initAnimeDetailsPage(): Promise<void> {
 
 function displayAnimeDetails(anime: AnimeDetails): void {
   // Use AniList banner if available, fallback to GoGoAnime image
-  const bannerImage = anime.anilistInfo?.bannerImage || anime.image;
+  const bannerImage = anime.anilistInfo?.cover || anime.anilistInfo?.image || anime.image;
   
   const banner = document.getElementById('animeDetailsTop');
   const image = document.getElementById('animeBanner')
@@ -80,6 +78,7 @@ function displayAnimeDetails(anime: AnimeDetails): void {
         `<p>Studios: ${anime.anilistInfo.studios.nodes.map(node => node.name).join(', ')}</p>` : 
         ''
       }
+      <a href="https://myanimelist.net/anime/${anime.anilistInfo.malId}" target="_blank">MAL Link</a>
     `;
   }
 
@@ -90,7 +89,13 @@ function displayAnimeDetails(anime: AnimeDetails): void {
 function updateElement(id: string, text: string): void {
   const element = document.getElementById(id);
   if (element) {
-    element.textContent = text;
+    // Clean the HTML string to prevent XSS (Cross-Site Scripting)
+    const sanitizedHtml = text
+      .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '') // Remove script tags
+      .replace(/on\w+="[^"]*"/g, ''); // Remove event handlers
+      
+    // Set the innerHTML instead of textContent
+    element.innerHTML = sanitizedHtml;
   }
 }
 

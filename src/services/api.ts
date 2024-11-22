@@ -150,6 +150,7 @@ export async function getAnimeDetails(id: string): Promise<AnimeDetails> {
     ...details,
     anilistInfo,
     // Provide fallback values with null checks
+    malId: anilistInfo?.malId,
     genres: anilistInfo?.genres || details.genres || [],
     score: anilistInfo?.rating,
     popularity: anilistInfo?.popularity,

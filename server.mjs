@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import fetch from 'node-fetch';
+import NodeCache from 'node-cache';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -12,6 +13,11 @@ const API_ANILIST_BASE_URL = 'http://localhost:3000/meta/anilist';
 // Resolve __dirname for ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const apiCache = new NodeCache({
+    stdTTL: 3600, // 1 hour cache
+    checkperiod: 3720 
+  });
 
 // Serve static files from the 'public' and 'dist' directories
 app.use(express.static(path.join(__dirname, 'public')));
@@ -32,6 +38,14 @@ app.get('*.js', (req, res, next) => {
 
 // Proxy API requests
 app.use('/api', async (req, res) => {
+    const cacheKey = `api_cache_${req.url}`;
+  
+    // Check cache first
+    const cachedData = apiCache.get(cacheKey);
+    if (cachedData) {
+        return res.json(cachedData);
+    }
+
     try {
         let baseUrl;
         const path = req.url;
@@ -39,7 +53,6 @@ app.use('/api', async (req, res) => {
         // Determine which API to use based on the request path
         if (path.includes('/anilist')) {
             baseUrl = API_ANILIST_BASE_URL;
-            // Remove '/anilist' from the path to match the actual API endpoint
             const cleanPath = path.replace('/anilist', '');
             const url = `${baseUrl}${cleanPath}`;
             console.log('Fetching from AniList API:', url);
@@ -48,6 +61,9 @@ app.use('/api', async (req, res) => {
                 throw new Error(`Failed to fetch data from ${url}: ${response.statusText}`);
             }
             const data = await response.json();
+            
+            // Cache both AniList and GogoAnime responses
+            apiCache.set(cacheKey, data, 3600); // 1 hour cache
             res.json(data);
         } else {
             // Default to GogoAnime API
@@ -58,6 +74,9 @@ app.use('/api', async (req, res) => {
                 throw new Error(`Failed to fetch data from ${url}: ${response.statusText}`);
             }
             const data = await response.json();
+            
+            // Cache GogoAnime responses as well
+            apiCache.set(cacheKey, data, 3600); // 1 hour cache
             res.json(data);
         }
     } catch (error) {
