@@ -44,8 +44,44 @@ export interface AniListResponse {
       name: string;
     }>;
   };
+  characters: Array<{
+    node: Character;
+    role: string;
+    name: {
+      full: string;
+      native: string;
+    }
+    image: string;
+    voiceActors: VoiceActor[];
+  }>;
 }
 
+export interface Character {
+  id: number;
+  name: {
+    full: string;
+    native: string;
+  };
+  image: {
+    large: string;
+    medium: string;
+  };
+  voiceActors: VoiceActor[];
+  role: string;
+}
+
+export interface VoiceActor {
+  id: number;
+  name: {
+    full: string;
+    native: string;
+  };
+  image: {
+    large: string;
+    medium: string;
+  };
+  language: string;
+}
 
 export interface AnimeDetails {
   id: string;

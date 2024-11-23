@@ -132,7 +132,6 @@ export async function getAnimeDetails(id: string): Promise<AnimeDetails> {
     if (searchResponse.ok) {
       const searchResults = await searchResponse.json();
       
-      // If search results exist, fetch detailed info using the first result's ID
       if (searchResults.results && searchResults.results.length > 0) {
         const anilistId = searchResults.results[0].id;
         const infoResponse = await fetch(`${API_PROXY_URL}/anilist/info/${anilistId}`);
@@ -156,10 +155,10 @@ export async function getAnimeDetails(id: string): Promise<AnimeDetails> {
     popularity: anilistInfo?.popularity,
     season: anilistInfo?.season,
     seasonYear: anilistInfo?.seasonYear,
-    studios: anilistInfo?.studios?.nodes?.map((node: { name: string }) => node.name) || []
+    studios: anilistInfo?.studios?.nodes?.map((node: { name: string }) => node.name) || [],
+    characters: anilistInfo?.characters,
   };
 }
-
 
 export async function getEpisodeServers(episodeId: string): Promise<ServerInfo[]> {
     try {
