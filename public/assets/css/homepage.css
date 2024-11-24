@@ -225,6 +225,14 @@
     color: #9ca3af;
 }
 
+.schedule-grid {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.main-bottom {
+    padding: 3rem;
+}
 @media (max-width: 640px) {
     .schedule-card {
         padding: 8px;

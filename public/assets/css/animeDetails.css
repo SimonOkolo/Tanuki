@@ -42,7 +42,7 @@
     justify-content: space-between;
     position: relative;
     gap: 2rem;
-    max-height: 80vh;
+    max-height: 70vh;
 }
 
 /* Anime banner/poster styles */
@@ -272,6 +272,7 @@ h3 {
 }
 
 #episodesContainer li {
+    max-height: 35px;
     color: #fff;
     background-color: #0000007d;
     padding: .5rem;
@@ -279,6 +280,14 @@ h3 {
     box-shadow: 0 2px 4px #0000001a;
 }
 
+.low {
+    display: flex;
+    margin: 2rem
+}
+
+.low-left {
+    flex: 5;
+}
 @media only screen and (max-width: 1300px) {
     body {
         max-height: 100vh;

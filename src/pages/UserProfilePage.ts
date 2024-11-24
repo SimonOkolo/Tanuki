@@ -1,5 +1,5 @@
 import { auth } from '../services/firebase';
-import { updateUserProfile, getUserProfile } from '../services/auth';
+import { updateUserProfile, getUserProfile, logoutUser } from '../services/auth';
 import { initCurrentlyWatching } from '../components/CurrentlyWatching';
 
 export function initProfilePage() {
@@ -10,6 +10,7 @@ export function initProfilePage() {
   const profileButton = document.getElementById('profile-nav-bar-item-2') as HTMLButtonElement;
   const continueWatchingButton = document.getElementById('profile-nav-bar-item-1') as HTMLButtonElement;
   const preferencesButton = document.getElementById('profile-nav-bar-item-3') as HTMLButtonElement;
+  const logoutButton = document.getElementById('logout-button') as HTMLButtonElement;
   const settingsdiv = document.getElementById('usersettings') as HTMLDivElement;
 
   const accountSection = document.querySelector('.profile') as HTMLDivElement;
@@ -40,6 +41,16 @@ function removeActiveClass() {
       }
     }
   }
+
+  logoutButton?.addEventListener('click', async () => {
+    try {
+      await logoutUser();
+      window.location.href = '/login.html';
+    } catch (error) {
+      console.error('Error logging out:', error);
+      alert('Failed to log out. Please try again.');
+    }
+  });
 
   profileForm.addEventListener('submit', async (e) => {
     e.preventDefault();

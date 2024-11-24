@@ -40,7 +40,7 @@ export class Schedule {
 
   private getDayName(dayOffset: number): string {
     const days = ['Today', 'Tomorrow'];
-    for (let i = 2; i < 7; i++) {
+    for (let i = 2; i < 2; i++) {
       const date = new Date();
       date.setDate(date.getDate() + i);
       days.push(date.toLocaleDateString('en-US', { weekday: 'long' }));
@@ -93,7 +93,7 @@ export class Schedule {
     const nav = document.createElement('div');
     nav.className = 'schedule-nav';
     
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < 2; i++) {
       const button = document.createElement('button');
       button.textContent = this.getDayName(i);
       button.className = i === this.selectedDay ? 'active' : '';

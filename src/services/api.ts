@@ -157,6 +157,7 @@ export async function getAnimeDetails(id: string): Promise<AnimeDetails> {
     seasonYear: anilistInfo?.seasonYear,
     studios: anilistInfo?.studios?.nodes?.map((node: { name: string }) => node.name) || [],
     characters: anilistInfo?.characters,
+    trailers: anilistInfo?.trailer,
   };
 }
 

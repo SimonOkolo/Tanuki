@@ -54,6 +54,11 @@ export interface AniListResponse {
     image: string;
     voiceActors: VoiceActor[];
   }>;
+  trailer: {
+    id: string;
+    site: string;
+    thumbnail: string;
+  };
 }
 
 export interface Character {
@@ -76,10 +81,7 @@ export interface VoiceActor {
     full: string;
     native: string;
   };
-  image: {
-    large: string;
-    medium: string;
-  };
+  image: string;
   language: string;
 }
 

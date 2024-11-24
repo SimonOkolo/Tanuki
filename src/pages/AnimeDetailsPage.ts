@@ -58,7 +58,7 @@ function displayAnimeDetails(anime: AnimeDetails): void {
 
   updateElement('animeReleased', `Released: ${
     anime.anilistInfo ? 
-      `${anime.anilistInfo.season} ${anime.anilistInfo.seasonYear}` : 
+      `${anime.anilistInfo.season}` : 
       (anime.releaseDate || 'N/A')
   }`);
 
@@ -82,8 +82,8 @@ function displayAnimeDetails(anime: AnimeDetails): void {
     `;
   }
 
+  displayTrailers(anime);
   displayCharacters(anime);
-
   // Preserve original episode display logic
   displayEpisodes(anime.episodes, anime.id);
 }
@@ -118,6 +118,88 @@ function displayEpisodes(episodes: Episode[], animeId: string): void {
       episodesContainer.appendChild(li);
     });
   }
+}
+
+function displayTrailers(anime: AnimeDetails): void {
+  const trailersContainer = document.getElementById('trailers')
+  if (!trailersContainer || !anime.anilistInfo?.trailer) {
+    console.log('Character data:', anime.anilistInfo?.trailer);
+    console.log('Missing container or character data');
+    return;
+  }
+  trailersContainer.innerHTML = '';
+
+  const trailerSectionTitle = document.createElement('h2');
+  trailerSectionTitle.textContent = 'Trailers';
+  trailerSectionTitle.style.cssText = 'margin: 2rem 0 1rem; color: #fff; font-size: 1.5rem;';
+  trailersContainer.appendChild(trailerSectionTitle);
+
+  const trailerList = document.createElement('div');
+  trailerList.className = 'trailer-list';
+  trailerList.style.cssText = `
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  `;
+
+  const youtubeId = anime.anilistInfo.trailer.id;
+  const thumbnail = anime.anilistInfo.trailer.thumbnail;
+
+  // Create trailer container
+  const trailerContainer = document.createElement('div');
+  trailerContainer.className = 'trailer-container';
+  trailerContainer.style.cssText = `
+    padding: 1rem;
+    position: relative;
+    cursor: pointer;
+    max-width: 300px;
+    width: 100%;
+  `;
+
+  // Create thumbnail image
+  const thumbnailImg = document.createElement('img');
+  thumbnailImg.src = thumbnail;
+  thumbnailImg.alt = 'Trailer thumbnail';
+  thumbnailImg.style.cssText = `
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  `;
+
+  // Create play button overlay
+  const playButton = document.createElement('div');
+  playButton.className = 'play-button';
+  playButton.style.cssText = `
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+
+  // Add play icon
+  playButton.innerHTML = `
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+      <path d="M8 5v14l11-7z"/>
+    </svg>
+  `;
+
+  // Add click handler to open YouTube video
+  trailerContainer.addEventListener('click', () => {
+    window.open(`https://www.youtube.com/watch?v=${youtubeId}`, '_blank');
+  });
+
+  // Assemble the trailer container
+  trailerContainer.appendChild(thumbnailImg);
+  trailerContainer.appendChild(playButton);
+  trailerList.appendChild(trailerContainer);
+  trailersContainer.appendChild(trailerList);
 }
 
 function displayCharacters(anime: AnimeDetails): void {
@@ -215,7 +297,7 @@ function displayCharacters(anime: AnimeDetails): void {
     `;
 
     const vaImg = document.createElement('img');
-    vaImg.src = vaImage.large;
+    vaImg.src = vaImage;
     vaImg.alt = vaName;
     vaImg.style.cssText = `
       width: 40px;
