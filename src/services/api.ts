@@ -127,7 +127,6 @@ export async function getAnimeDetails(id: string): Promise<AnimeDetails> {
   
   let anilistInfo;
   try {
-    // First, try to search AniList with the title
     const searchResponse = await fetch(`${API_PROXY_URL}/anilist/${encodeURIComponent(details.title)}`);
     if (searchResponse.ok) {
       const searchResults = await searchResponse.json();
@@ -149,9 +148,9 @@ export async function getAnimeDetails(id: string): Promise<AnimeDetails> {
     ...details,
     anilistInfo,
     // Provide fallback values with null checks
-    malId: anilistInfo?.malId,
+    malId: anilistInfo?.malId || "",
     genres: anilistInfo?.genres || details.genres || [],
-    score: anilistInfo?.rating,
+    score: anilistInfo?.rating || "No rating data",
     popularity: anilistInfo?.popularity,
     season: anilistInfo?.season,
     seasonYear: anilistInfo?.seasonYear,

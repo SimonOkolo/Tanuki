@@ -23,6 +23,9 @@ export async function initAnimeDetailsPage(): Promise<void> {
 function displayAnimeDetails(anime: AnimeDetails): void {
   // Use AniList banner if available, fallback to GoGoAnime image
   const bannerImage = anime.anilistInfo?.cover || anime.anilistInfo?.image || anime.image;
+  const clearLogoArtwork = anime.anilistInfo?.artwork?.find(art => art.type === 'clear_logo');
+  const titleElement = document.getElementById('animeTitle');
+
   
   const banner = document.getElementById('animeDetailsTop');
   const image = document.getElementById('animeBanner')
@@ -31,20 +34,28 @@ function displayAnimeDetails(anime: AnimeDetails): void {
     image.style.backgroundImage = `url(${anime.image})`;
   }
 
-  // Enhance title display with alternative titles
-  const titleElement = document.getElementById('animeTitle');
-  if (titleElement && anime.anilistInfo) {
+  if (clearLogoArtwork && titleElement) {
+    // If clear logo exists, create an img element to display it
+    const clearLogoImg = document.createElement('img');
+    clearLogoImg.src = clearLogoArtwork.img;
+    clearLogoImg.alt = 'Anime Logo';
+
+    titleElement.innerHTML = '';
+    titleElement.appendChild(clearLogoImg);
+  } else if (titleElement && anime.anilistInfo) {
+
     const titles = [
       anime.anilistInfo.title.english,
       anime.anilistInfo.title.romaji,
       anime.anilistInfo.title.native
     ].filter(Boolean);
-    
+
     titleElement.textContent = titles[0];
     if (titles.length > 1) {
       titleElement.title = titles.join(' / ');
     }
   }
+
 
   // Use AniList description if available
   updateElement('animeDescription', 
@@ -68,7 +79,6 @@ function displayAnimeDetails(anime: AnimeDetails): void {
     'N/A'
   }`);
 
-  // Optional: Add additional information from AniList
   const extraDetailsEl = document.getElementById('animeExtraDetails');
   if (extraDetailsEl && anime.anilistInfo) {
     extraDetailsEl.innerHTML += `

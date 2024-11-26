@@ -59,6 +59,12 @@ export interface AniListResponse {
     site: string;
     thumbnail: string;
   };
+  artwork?: Array<{
+    img: string;
+    type: string;
+    providerId: string;
+  }>;
+
 }
 
 export interface Character {
