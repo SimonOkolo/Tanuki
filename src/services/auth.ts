@@ -20,11 +20,28 @@ export async function registerUser(email: string, password: string, username: st
 }
 
 export async function loginUser(email: string, password: string) {
+  if (!email || !password) {
+    throw new Error("Email and password are required");
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    throw new Error("Invalid email format");
+  }
+
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return userCredential.user;
-  } catch (error) {
-    console.error("Error logging in:", error);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      if (error.message.includes('invalid-credential')) {
+        throw new Error("Invalid login credentials");
+      }
+      if (error.message.includes('too-many-requests')) {
+        throw new Error("Too many login attempts. Please try again later.");
+      }
+    }
+    console.error("Login error:", error);
     throw error;
   }
 }

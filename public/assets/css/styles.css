@@ -109,15 +109,7 @@ footer {
     object-fit: cover;
 }
 
-.login-button {
-    background-color: #00000000;
-}
 
-#loginForm {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-}
 
 nav ul {
     list-style: none;
@@ -472,12 +464,6 @@ main {
   font-size: 0.8rem;
 }
 
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 85vh;
-}
 
 .anime-info p {
     margin: 0;
