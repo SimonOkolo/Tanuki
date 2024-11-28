@@ -64,7 +64,13 @@ export interface AniListResponse {
     type: string;
     providerId: string;
   }>;
-
+  recommendations?: Array<{
+    title: {
+      romaji: string;
+      english: string;
+      native: string;
+    }
+  }>;
 }
 
 export interface Character {

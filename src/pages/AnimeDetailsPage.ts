@@ -1,4 +1,4 @@
-import { getAnimeDetails } from '../services/api';
+import { getAnimeDetails, searchAnime } from '../services/api';
 import { AnimeDetails, Episode } from '../types';
 import { auth } from '../services/firebase';
 
@@ -94,6 +94,7 @@ function displayAnimeDetails(anime: AnimeDetails): void {
 
   displayTrailers(anime);
   displayCharacters(anime);
+  displayRecommendations(anime);
   // Preserve original episode display logic
   displayEpisodes(anime.episodes, anime.id);
 }
@@ -336,4 +337,115 @@ function displayCharacters(anime: AnimeDetails): void {
 
   // Append the list to the container
   charactersContainer.appendChild(characterList);
+}
+
+async function displayRecommendations(anime: AnimeDetails): Promise<void> {
+  const recContainer = document.getElementById('reccomended');
+  if (!recContainer || !anime.anilistInfo?.recommendations) {
+    return;
+  }
+
+  // Clear existing content
+  recContainer.innerHTML = '';
+
+  // Add section title
+  const sectionTitle = document.createElement('h2');
+  sectionTitle.textContent = 'Recommended Anime';
+  sectionTitle.style.cssText = 'margin: 2rem 0 1rem; color: #fff; font-size: 1.5rem;';
+  recContainer.appendChild(sectionTitle);
+
+  // Create recommendations container
+  const recList = document.createElement('div');
+  recList.className = 'recommendations-list';
+  recList.style.cssText = `
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+  `;
+
+  // Limit recommendations to 6
+  const recommendationPromises = anime.anilistInfo.recommendations
+    .slice(0, 6)
+    .map(async (rec) => {
+      try {
+        // Search for the recommended anime in GoGoAnime using its AniList title
+        const searchResults = await searchAnime(rec.title.english || rec.title.romaji);
+        
+        // If search results are found, return the first matching anime
+        if (searchResults && searchResults.length > 0) {
+          return searchResults[0];
+        }
+        
+        // If no direct match, return null to be filtered out
+        return null;
+      } catch (error) {
+        console.warn(`Could not find GoGoAnime match for recommendation: ${rec.title.english}`, error);
+        return null;
+      }
+    });
+
+  try {
+    // Resolve all recommendation searches
+    const recommendations = await Promise.all(recommendationPromises);
+    
+    // Filter out null results
+    const validRecommendations = recommendations.filter((rec): rec is AnimeDetails => rec !== null);
+
+    // If no recommendations found, don't render anything
+    if (validRecommendations.length === 0) {
+      return;
+    }
+
+    // Create cards for valid recommendations
+    validRecommendations.forEach(recAnime => {
+      const recCard = document.createElement('div');
+      recCard.className = 'recommendation-card';
+      recCard.style.cssText = `
+        cursor: pointer;
+        flex: 0 0 auto;
+        width: 171px;
+        height: 261px;
+        margin-right: 1rem;
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        box-shadow: 0 4px 6px #0000001a;
+        transition: transform .3s ease, box-shadow .3s ease;
+      `;
+
+      recCard.innerHTML = `
+        <img src="${recAnime.image}" alt="${recAnime.title}" style="width: 100%; height: auto; border-radius: 8px;">
+        <div class="recommendation-title" style="height: auto;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background-color: #1e1e1e;
+          color: #fff;
+          padding: 0.5rem;
+          transition: background-color 0.5s ease, height 0.5s ease;">
+          ${recAnime.title}
+        </div>
+      `;
+
+      recCard.addEventListener('click', () => {
+        window.location.href = `animeDetails.html?id=${recAnime.id}`;
+      });
+
+      recCard.addEventListener('mouseenter', () => {
+        recCard.style.transform = 'scale(1.05)';
+      });
+
+      recCard.addEventListener('mouseleave', () => {
+        recCard.style.transform = 'scale(1)';
+      });
+
+      recList.appendChild(recCard);
+    });
+
+    recContainer.appendChild(recList);
+  } catch (error) {
+    console.error('Error processing recommendations:', error);
+  }
 }
