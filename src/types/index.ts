@@ -39,11 +39,9 @@ export interface AniListResponse {
   season: string;
   seasonYear: number;
   status: string;
-  studios: {
-    nodes: Array<{
-      name: string;
-    }>;
-  };
+  studios: Array<{
+    studioName: string;
+  }>;
   characters: Array<{
     node: Character;
     role: string;

@@ -56,7 +56,6 @@ export class Slideshow {
       metadataElement.innerHTML = metadata.join(' • ');
     }
 
-
     if (animeButton && anime.id) {
       animeButton.onclick = () => window.location.href = `animeDetails.html?id=${anime.id}`;
     }

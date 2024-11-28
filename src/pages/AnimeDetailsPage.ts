@@ -1,4 +1,4 @@
-import { getAnimeDetails, searchAnime } from '../services/api';
+import { getAniListInfo, getAnimeDetails, searchAnime } from '../services/api';
 import { AnimeDetails, Episode } from '../types';
 import { auth } from '../services/firebase';
 
@@ -84,8 +84,8 @@ function displayAnimeDetails(anime: AnimeDetails): void {
     extraDetailsEl.innerHTML += `
       <p>Rating: ${anime.anilistInfo.rating / 10}/10</p>
       <p>Popularity: ${anime.anilistInfo.popularity}</p>
-      ${anime.anilistInfo.studios?.nodes?.length ? 
-        `<p>Studios: ${anime.anilistInfo.studios.nodes.map(node => node.name).join(', ')}</p>` : 
+      ${anime.anilistInfo.studios?.length ? 
+        `<p>Studios: ${anime.anilistInfo.studios.join(', ')}</p>` : 
         ''
       }
       <a href="https://myanimelist.net/anime/${anime.anilistInfo.malId}" target="_blank">MAL Link</a>

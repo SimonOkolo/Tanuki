@@ -154,7 +154,7 @@ export async function getAnimeDetails(id: string): Promise<AnimeDetails> {
     popularity: anilistInfo?.popularity,
     season: anilistInfo?.season,
     seasonYear: anilistInfo?.seasonYear,
-    studios: anilistInfo?.studios?.nodes?.map((node: { name: string }) => node.name) || [],
+    studios: anilistInfo?.studios,
     characters: anilistInfo?.characters,
     trailers: anilistInfo?.trailer,
   };
@@ -199,7 +199,7 @@ export async function getTopAiringWithDetails(): Promise<Anime[]> {
         popularity: details.anilistInfo?.popularity,
         season: details.anilistInfo?.season,
         seasonYear: details.anilistInfo?.seasonYear,
-        studios: details.anilistInfo?.studios?.nodes?.map(node => node.name)
+        studios: details.anilistInfo?.studios,
       };
     })
   );
