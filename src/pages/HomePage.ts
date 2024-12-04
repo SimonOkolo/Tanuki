@@ -47,7 +47,6 @@ function displayGenres(genres: { id: string; title: string }[], container: HTMLE
   genres.forEach(genre => {
       const genreLink = document.createElement('a');
       genreLink.textContent = genre.title;
-      genreLink.href = `genres.html?id=${genre.id}&title=${encodeURIComponent(genre.title)}`;
       genreLink.classList.add('genre-link');
       wrapper.appendChild(genreLink);
   });

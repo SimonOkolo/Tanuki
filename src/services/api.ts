@@ -213,4 +213,4 @@ async function handleApiResponse(response: Response) {
       throw new Error(`API request failed: ${response.statusText}\n${errorBody}`);
     }
     return response.json();
-  }
+}

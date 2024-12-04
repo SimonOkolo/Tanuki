@@ -65,13 +65,14 @@ export class SearchBar {
             }, 300);
         });
 
-        this.searchForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const query = this.searchInput.value.trim();
-            if (query) {
-                window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
-            }
-        });
+        
+        //this.searchForm.addEventListener('submit', (e) => {
+        //    e.preventDefault();
+        //    const query = this.searchInput.value.trim();
+        //    if (query) {
+        //        window.location.href = `/search.html?q=${encodeURIComponent(query)}`;
+        //    }
+        //});
 
         document.addEventListener('click', (e) => {
             if (!this.container.contains(e.target as Node)) {
