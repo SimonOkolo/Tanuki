@@ -1,3 +1,6 @@
+> [!WARNING]  
+> This no longer works since the provider, gogoanime, was put under watch
+
 
 ![Logo](https://github.com/SimonOkolo/Tanuki/blob/main/tanuki-logo.png?raw=True)
 
