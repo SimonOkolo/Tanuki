@@ -1,4 +1,3 @@
----
 
 # Tanuki
 
@@ -7,8 +6,6 @@
 
 ![Tanuki Logo](https://github.com/SimonOkolo/Tanuki/blob/main/tanuki-logo.png?raw=True)
 
----
-
 ## 🐾 Overview
 
 **Tanuki** is an anime streaming website built using the [Consumet API](https://github.com/consumet).
@@ -16,7 +13,6 @@ The platform allows users to stream anime with personalized accounts and ad-free
 
 > **Note:** Tanuki is still in early development and testing stages.
 
----
 
 ## ✨ Features
 
@@ -24,7 +20,6 @@ The platform allows users to stream anime with personalized accounts and ad-free
 *  **Access Control** – Only verified users can log in, reducing server load and improving performance.
 *  **Ad-Free Experience** – Watch your favorite anime without interruptions.
 
----
 
 ##  Screenshots
 
@@ -40,7 +35,6 @@ The platform allows users to stream anime with personalized accounts and ad-free
 
 ![Episode Page](https://i.ibb.co/CzTQd9t/Screenshot-2024-11-12-133738.png)
 
----
 
 ## 🙏 Credits
 
@@ -48,4 +42,3 @@ The platform allows users to stream anime with personalized accounts and ad-free
 
   * Includes **api.consumet.org** and **consumet.ts**
 
----
