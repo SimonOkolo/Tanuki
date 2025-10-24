@@ -1,47 +1,51 @@
-> [!WARNING]  
-> This no longer works since the provider, gogoanime, was put under watch
+---
 
+# Tanuki
 
-![Logo](https://github.com/SimonOkolo/Tanuki/blob/main/tanuki-logo.png?raw=True)
+> [!WARNING]
+> ⚠️ This project no longer works because the content provider, **Gogoanime**, has been taken down.
 
+![Tanuki Logo](https://github.com/SimonOkolo/Tanuki/blob/main/tanuki-logo.png?raw=True)
 
+---
 
-#
-An anime streaming website making use of the Consumet API. The website is still in its early stages of development and testing.
+## 🐾 Overview
 
+**Tanuki** is an anime streaming website built using the [Consumet API](https://github.com/consumet).
+The platform allows users to stream anime with personalized accounts and ad-free viewing.
 
+> **Note:** Tanuki is still in early development and testing stages.
 
+---
 
-## Features
+## ✨ Features
 
-- Accounts using firebase to save usernames and currently watching anime
+*  **User Accounts via Firebase** – Save usernames, track progress, and continue watching seamlessly.
+*  **Access Control** – Only verified users can log in, reducing server load and improving performance.
+*  **Ad-Free Experience** – Watch your favorite anime without interruptions.
 
-- Special access only meaning only verified users are able to access and use the site therefore reducing server load
+---
 
-- No ads while watching anime
-## As of 12/11/2024
+##  Screenshots
 
-#### Home page
-![img](https://i.ibb.co/TLJBxrC/Screenshot-2024-11-12-133707.png)
+###  Home Page
 
-#### Anime Details
-![img](https://i.ibb.co/Nj3tYc8/Screenshot-2024-11-12-133722.png)
+![Home Page](https://i.ibb.co/TLJBxrC/Screenshot-2024-11-12-133707.png)
 
-#### Episode Page
-![img](https://i.ibb.co/CzTQd9t/Screenshot-2024-11-12-133738.png)
-## Roadmap
+###  Anime Details
 
-- Reduce dependence on single providers and move to Anilist
+![Anime Details](https://i.ibb.co/Nj3tYc8/Screenshot-2024-11-12-133722.png)
 
-- Provide more information to the user through the use of another provider
+###  Episode Page
 
-- Reduce the amount of API calls and load on server
+![Episode Page](https://i.ibb.co/CzTQd9t/Screenshot-2024-11-12-133738.png)
 
-- Finish implementation of USP
+---
 
+## 🙏 Credits
 
+* [**Consumet Project**](https://github.com/consumet) – for powering the API backend
 
+  * Includes **api.consumet.org** and **consumet.ts**
 
-## Credits
-
-[Consumet Project](https://github.com/consumet) including *api.consumet.org* and *consumet.ts*
+---
