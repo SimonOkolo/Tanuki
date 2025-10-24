@@ -2,9 +2,8 @@
 
 # Tanuki
 
-> [!WARNING]
+> [!NOTE]
 > ⚠️ This project no longer works because the content provider, **Gogoanime**, is currently under watch.
-
 
 ![Tanuki Logo](https://github.com/SimonOkolo/Tanuki/blob/main/tanuki-logo.png?raw=True)
 
